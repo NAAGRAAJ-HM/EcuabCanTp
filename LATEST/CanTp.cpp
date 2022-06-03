@@ -10,6 +10,7 @@
 #include "CfgCanTp.hpp"
 #include "CanTp_core.hpp"
 #include "infCanTp_Exp.hpp"
+#include "infCanTp_Imp.hpp"
 
 /******************************************************************************/
 /* #DEFINES                                                                   */
@@ -42,6 +43,7 @@ class module_CanTp:
 /******************************************************************************/
             Std_TypeReturn          IsInitDone{E_NOT_OK};
       const CfgModule_TypeAbstract* lptrCfg{(CfgModule_TypeAbstract*)NULL_PTR};
+            infPduRClient_Lo        infPduRClient_CanTp;
 
    public:
       module_CanTp(Std_TypeVersionInfo lVersionInfo) : abstract_module(lVersionInfo){
@@ -176,6 +178,9 @@ FUNC(void, CANTP_CODE) module_CanTp::MainFunction(void){
 #endif
    }
 #endif
+}
+
+FUNC(void, CANTP_CODE) module_CanTp::dummy(void){
 }
 
 /******************************************************************************/
