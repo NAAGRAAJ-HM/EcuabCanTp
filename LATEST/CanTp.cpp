@@ -75,10 +75,10 @@ CONSTP2VAR(infSchMClient, CANTP_VAR, CANTP_CONST) gptrinfSchMClient_CanTp = &Can
 VAR(module_CanTp, CANTP_VAR) CanTp(
    {
 #if(STD_ON == _ReSIM)
-   char strModuleName[6] = "CANTP";
+         "CanTp"
 #else
 #endif
-         CANTP_AR_RELEASE_VERSION_MAJOR
+      ,  CANTP_AR_RELEASE_VERSION_MAJOR
       ,  CANTP_AR_RELEASE_VERSION_MINOR
       ,  0x00
       ,  0xFF
