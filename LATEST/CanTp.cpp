@@ -131,7 +131,9 @@ FUNC(void, CANTP_CODE) module_CanTp::InitFunction(
 #endif
 }
 
-FUNC(void, CANTP_CODE) module_CanTp::DeInitFunction(void){
+FUNC(void, CANTP_CODE) module_CanTp::DeInitFunction(
+   void
+){
 #if(STD_ON == CanTp_InitCheck)
    if(
          E_OK
@@ -154,7 +156,9 @@ FUNC(void, CANTP_CODE) module_CanTp::DeInitFunction(void){
 #endif
 }
 
-FUNC(void, CANTP_CODE) module_CanTp::MainFunction(void){
+FUNC(void, CANTP_CODE) module_CanTp::MainFunction(
+   void
+){
 #if(STD_ON == CanTp_InitCheck)
    if(
          E_OK
@@ -176,7 +180,9 @@ FUNC(void, CANTP_CODE) module_CanTp::MainFunction(void){
 #endif
 }
 
-FUNC(void, CANTP_CODE) module_CanTp::dummy(void){
+FUNC(void, CANTP_CODE) module_CanTp::dummy(
+   void
+){
 }
 
 /******************************************************************************/
