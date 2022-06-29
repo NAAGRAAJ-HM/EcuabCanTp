@@ -41,13 +41,9 @@ class module_CanTp:
 /******************************************************************************/
 /* OBJECTS                                                                    */
 /******************************************************************************/
-            Std_TypeReturn          IsInitDone{E_NOT_OK};
-      const CfgModule_TypeAbstract* lptrCfg{(CfgModule_TypeAbstract*)NULL_PTR};
             infPduRClient_Lo        infPduRClient_CanTp;
 
    public:
-      module_CanTp(Std_TypeVersionInfo lVersionInfo) : abstract_module(lVersionInfo){
-      }
       FUNC(void, CANTP_CODE) InitFunction(
          CONSTP2CONST(CfgModule_TypeAbstract, CANTP_CONFIG_DATA, CANTP_APPL_CONST) lptrCfgModule
       );
@@ -72,18 +68,7 @@ CONSTP2VAR(infSchMClient, CANTP_VAR, CANTP_CONST) gptrinfSchMClient_CanTp = &Can
 /******************************************************************************/
 /* OBJECTS                                                                    */
 /******************************************************************************/
-VAR(module_CanTp, CANTP_VAR) CanTp(
-   {
-         CANTP_AR_RELEASE_VERSION_MAJOR
-      ,  CANTP_AR_RELEASE_VERSION_MINOR
-      ,  0x00
-      ,  0xFF
-      ,  0x01
-      ,  '0'
-      ,  '1'
-      ,  '0'
-   }
-);
+VAR(module_CanTp, CANTP_VAR) CanTp;
 
 /******************************************************************************/
 /* FUNCTIONS                                                                  */
