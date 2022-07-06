@@ -11,6 +11,7 @@
 #include "infCanTp_Dcm.hpp"
 #include "infCanTp_Det.hpp"
 #include "infCanTp_SchM.hpp"
+#include "infPduRClient_Lo.hpp"
 
 /******************************************************************************/
 /* #DEFINES                                                                   */

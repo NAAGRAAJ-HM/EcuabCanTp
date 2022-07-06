@@ -7,9 +7,7 @@
 /* #INCLUDES                                                                  */
 /******************************************************************************/
 #include "Module.hpp"
-#include "CfgCanTp.hpp"
-#include "CanTp_core.hpp"
-#include "infCanTp_Exp.hpp"
+#include "CanTp.hpp"
 #include "infCanTp_Imp.hpp"
 
 /******************************************************************************/
@@ -32,27 +30,6 @@
 /******************************************************************************/
 /* TYPEDEFS                                                                   */
 /******************************************************************************/
-class module_CanTp:
-      INTERFACES_EXPORTED_CANTP
-      public abstract_module
-   ,  public class_CanTp_Functionality
-{
-   private:
-/******************************************************************************/
-/* OBJECTS                                                                    */
-/******************************************************************************/
-            infPduRClient_Lo        infPduRClient_CanTp;
-
-   public:
-      FUNC(void, CANTP_CODE) InitFunction(
-         CONSTP2CONST(CfgModule_TypeAbstract, CANTP_CONFIG_DATA, CANTP_APPL_CONST) lptrCfgModule
-      );
-      FUNC(void, CANTP_CODE) DeInitFunction (void);
-      FUNC(void, CANTP_CODE) MainFunction   (void);
-      CANTP_CORE_FUNCTIONALITIES
-};
-
-extern VAR(module_CanTp, CANTP_VAR) CanTp;
 
 /******************************************************************************/
 /* CONSTS                                                                     */
