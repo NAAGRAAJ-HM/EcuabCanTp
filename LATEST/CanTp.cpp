@@ -48,7 +48,8 @@ VAR(module_CanTp, CANTP_VAR) CanTp;
 /* FUNCTIONS                                                                  */
 /******************************************************************************/
 FUNC(void, CANTP_CODE) module_CanTp::InitFunction(
-   CONSTP2CONST(CfgModule_TypeAbstract, CANTP_CONFIG_DATA, CANTP_APPL_CONST) lptrCfgModule
+      CONSTP2CONST(ConstModule_TypeAbstract, CANTP_CONST,       CANTP_APPL_CONST) lptrConstModule
+   ,  CONSTP2CONST(CfgModule_TypeAbstract,   CANTP_CONFIG_DATA, CANTP_APPL_CONST) lptrCfgModule
 ){
 #if(STD_ON == CanTp_InitCheck)
    if(
@@ -56,8 +57,12 @@ FUNC(void, CANTP_CODE) module_CanTp::InitFunction(
       != IsInitDone
    ){
 #endif
-      if(NULL_PTR != lptrCfgModule){
-         lptrCfg = lptrCfgModule;
+      if(
+            (NULL_PTR != lptrConstModule)
+         && (NULL_PTR != lptrCfgModule)
+      ){
+         lptrConst = lptrConstModule;
+         lptrCfg   = lptrCfgModule;
       }
       else{
 #if(STD_ON == CanTp_DevErrorDetect)

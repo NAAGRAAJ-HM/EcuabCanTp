@@ -7,6 +7,7 @@
 /******************************************************************************/
 /* #INCLUDES                                                                  */
 /******************************************************************************/
+#include "ConstCanTp.hpp"
 #include "CfgCanTp.hpp"
 #include "CanTp_core.hpp"
 #include "infCanTp_Exp.hpp"
@@ -31,6 +32,7 @@ class module_CanTp:
 /******************************************************************************/
 /* OBJECTS                                                                    */
 /******************************************************************************/
+      const ConstCanTp_Type* lptrConst = (ConstCanTp_Type*)NULL_PTR;
       infPduRClient_Lo infPduRClient_CanTp;
 
    public:
@@ -38,7 +40,8 @@ class module_CanTp:
 /* FUNCTIONS                                                                  */
 /******************************************************************************/
       FUNC(void, CANTP_CODE) InitFunction(
-         CONSTP2CONST(CfgModule_TypeAbstract, CANTP_CONFIG_DATA, CANTP_APPL_CONST) lptrCfgModule
+            CONSTP2CONST(ConstModule_TypeAbstract, CANTP_CONST,       CANTP_APPL_CONST) lptrConstModule
+         ,  CONSTP2CONST(CfgModule_TypeAbstract,   CANTP_CONFIG_DATA, CANTP_APPL_CONST) lptrCfgModule
       );
       FUNC(void, CANTP_CODE) DeInitFunction (void);
       FUNC(void, CANTP_CODE) MainFunction   (void);
