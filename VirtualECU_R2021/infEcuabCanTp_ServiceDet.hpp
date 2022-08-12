@@ -1,16 +1,13 @@
 #pragma once
 /******************************************************************************/
-/* File   : EcuabCanTp.hpp                                                         */
+/* File   : infEcuabCanTp_ServiceDet.hpp                                                  */
 /* Author : NAGARAJA HM (c) since 1982. All rights reserved.                  */
 /******************************************************************************/
 
 /******************************************************************************/
 /* #INCLUDES                                                                  */
 /******************************************************************************/
-#include "ConstEcuabCanTp.hpp"
-#include "CfgEcuabCanTp.hpp"
-#include "EcuabCanTp_core.hpp"
-#include "infEcuabCanTp_Exp.hpp"
+#include "CompilerCfg_EcuabCanTp.hpp"
 
 /******************************************************************************/
 /* #DEFINES                                                                   */
@@ -23,30 +20,9 @@
 /******************************************************************************/
 /* TYPEDEFS                                                                   */
 /******************************************************************************/
-class module_EcuabCanTp:
-      INTERFACES_EXMCALPORTED_ECUABCANTP
-      public abstract_module
-   ,  public class_EcuabCanTp_Functionality
-{
-   private:
-/******************************************************************************/
-/* OBJECTS                                                                    */
-/******************************************************************************/
-      const ConstEcuabCanTp_Type* lptrConst = (ConstEcuabCanTp_Type*)NULL_PTR;
-      infServicePduRClient_Lo infServicePduRClient_EcuabCanTp;
-
-   public:
-/******************************************************************************/
-/* FUNCTIONS                                                                  */
-/******************************************************************************/
-      FUNC(void, ECUABCANTP_CODE) InitFunction(
-            CONSTP2CONST(ConstModule_TypeAbstract, ECUABCANTP_CONST,       ECUABCANTP_APPL_CONST) lptrConstModule
-         ,  CONSTP2CONST(CfgModule_TypeAbstract,   ECUABCANTP_CONFIG_DATA, ECUABCANTP_APPL_CONST) lptrCfgModule
-      );
-      FUNC(void, ECUABCANTP_CODE) DeInitFunction (void);
-      FUNC(void, ECUABCANTP_CODE) MainFunction   (void);
-      ECUABCANTP_CORE_FUNCTIONALITIES
-};
+typedef enum{
+      CANTP_E_UNINIT
+}EcuabCanTp_TypeServiceDetErrorCode;
 
 /******************************************************************************/
 /* CONSTS                                                                     */
@@ -59,7 +35,10 @@ class module_EcuabCanTp:
 /******************************************************************************/
 /* OBJECTS                                                                    */
 /******************************************************************************/
-extern VAR(module_EcuabCanTp, ECUABCANTP_VAR) EcuabCanTp;
+
+/******************************************************************************/
+/* FUNCTIONS                                                                  */
+/******************************************************************************/
 
 /******************************************************************************/
 /* EOF                                                                        */

@@ -12,11 +12,11 @@
 /******************************************************************************/
 /* #DEFINES                                                                   */
 /******************************************************************************/
-#define CANTP_CORE_FUNCTIONALITIES                                             \
-              FUNC(void, CANTP_CODE) dummy                         (void);     \
+#define ECUABCANTP_CORE_FUNCTIONALITIES                                             \
+              FUNC(void, ECUABCANTP_CODE) dummy                         (void);     \
 
-#define CANTP_CORE_FUNCTIONALITIES_VIRTUAL                                     \
-      virtual FUNC(void, CANTP_CODE) dummy                         (void) = 0; \
+#define ECUABCANTP_CORE_FUNCTIONALITIES_VIRTUAL                                     \
+      virtual FUNC(void, ECUABCANTP_CODE) dummy                         (void) = 0; \
 
 /******************************************************************************/
 /* MACROS                                                                     */
@@ -27,7 +27,7 @@
 /******************************************************************************/
 class class_EcuabCanTp_Functionality{
    public:
-      CANTP_CORE_FUNCTIONALITIES_VIRTUAL
+      ECUABCANTP_CORE_FUNCTIONALITIES_VIRTUAL
 };
 
 /******************************************************************************/

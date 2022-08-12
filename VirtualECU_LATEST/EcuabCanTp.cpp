@@ -13,18 +13,18 @@
 /******************************************************************************/
 /* #DEFINES                                                                   */
 /******************************************************************************/
-#define CANTP_AR_RELEASE_VERSION_MAJOR                                         4
-#define CANTP_AR_RELEASE_VERSION_MINOR                                         3
+#define ECUABCANTP_AR_RELEASE_VERSION_MAJOR                                         4
+#define ECUABCANTP_AR_RELEASE_VERSION_MINOR                                         3
 
 /******************************************************************************/
 /* MACROS                                                                     */
 /******************************************************************************/
-#if(CANTP_AR_RELEASE_VERSION_MAJOR != STD_AR_RELEASE_VERSION_MAJOR)
-   #error "Incompatible CANTP_AR_RELEASE_VERSION_MAJOR!"
+#if(ECUABCANTP_AR_RELEASE_VERSION_MAJOR != STD_AR_RELEASE_VERSION_MAJOR)
+   #error "Incompatible ECUABCANTP_AR_RELEASE_VERSION_MAJOR!"
 #endif
 
-#if(CANTP_AR_RELEASE_VERSION_MINOR != STD_AR_RELEASE_VERSION_MINOR)
-   #error "Incompatible CANTP_AR_RELEASE_VERSION_MINOR!"
+#if(ECUABCANTP_AR_RELEASE_VERSION_MINOR != STD_AR_RELEASE_VERSION_MINOR)
+   #error "Incompatible ECUABCANTP_AR_RELEASE_VERSION_MINOR!"
 #endif
 
 /******************************************************************************/
@@ -42,14 +42,14 @@
 /******************************************************************************/
 /* OBJECTS                                                                    */
 /******************************************************************************/
-VAR(module_EcuabCanTp, CANTP_VAR) EcuabCanTp;
+VAR(module_EcuabCanTp, ECUABCANTP_VAR) EcuabCanTp;
 
 /******************************************************************************/
 /* FUNCTIONS                                                                  */
 /******************************************************************************/
-FUNC(void, CANTP_CODE) module_EcuabCanTp::InitFunction(
-      CONSTP2CONST(ConstModule_TypeAbstract, CANTP_CONST,       CANTP_APPL_CONST) lptrConstModule
-   ,  CONSTP2CONST(CfgModule_TypeAbstract,   CANTP_CONFIG_DATA, CANTP_APPL_CONST) lptrCfgModule
+FUNC(void, ECUABCANTP_CODE) module_EcuabCanTp::InitFunction(
+      CONSTP2CONST(ConstModule_TypeAbstract, ECUABCANTP_CONST,       ECUABCANTP_APPL_CONST) lptrConstModule
+   ,  CONSTP2CONST(CfgModule_TypeAbstract,   ECUABCANTP_CONFIG_DATA, ECUABCANTP_APPL_CONST) lptrCfgModule
 ){
 #if(STD_ON == EcuabCanTp_InitCheck)
    if(
@@ -83,14 +83,14 @@ FUNC(void, CANTP_CODE) module_EcuabCanTp::InitFunction(
             0 //TBD: IdModule
          ,  0 //TBD: IdInstance
          ,  0 //TBD: IdApi
-         ,  CANTP_E_UNINIT
+         ,  ECUABCANTP_E_UNINIT
       );
 #endif
    }
 #endif
 }
 
-FUNC(void, CANTP_CODE) module_EcuabCanTp::DeInitFunction(
+FUNC(void, ECUABCANTP_CODE) module_EcuabCanTp::DeInitFunction(
    void
 ){
 #if(STD_ON == EcuabCanTp_InitCheck)
@@ -108,14 +108,14 @@ FUNC(void, CANTP_CODE) module_EcuabCanTp::DeInitFunction(
             0 //TBD: IdModule
          ,  0 //TBD: IdInstance
          ,  0 //TBD: IdApi
-         ,  CANTP_E_UNINIT
+         ,  ECUABCANTP_E_UNINIT
       );
 #endif
    }
 #endif
 }
 
-FUNC(void, CANTP_CODE) module_EcuabCanTp::MainFunction(
+FUNC(void, ECUABCANTP_CODE) module_EcuabCanTp::MainFunction(
    void
 ){
 #if(STD_ON == EcuabCanTp_InitCheck)
@@ -132,14 +132,14 @@ FUNC(void, CANTP_CODE) module_EcuabCanTp::MainFunction(
             0 //TBD: IdModule
          ,  0 //TBD: IdInstance
          ,  0 //TBD: IdApi
-         ,  CANTP_E_UNINIT
+         ,  ECUABCANTP_E_UNINIT
       );
 #endif
    }
 #endif
 }
 
-FUNC(void, CANTP_CODE) module_EcuabCanTp::dummy(
+FUNC(void, ECUABCANTP_CODE) module_EcuabCanTp::dummy(
    void
 ){
 }

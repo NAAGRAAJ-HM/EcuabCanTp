@@ -1,19 +1,22 @@
 #pragma once
 /******************************************************************************/
-/* File   : infEcuabCanTp_Exp.hpp                                                  */
+/* File   : EcuabCanTp_core.hpp                                                    */
 /* Author : NAGARAJA HM (c) since 1982. All rights reserved.                  */
 /******************************************************************************/
 
 /******************************************************************************/
 /* #INCLUDES                                                                  */
 /******************************************************************************/
-#include "infEcuabCanTp_ServiceDet.hpp"
-#include "infServicePduRClient_Lo.hpp"
+#include "CompilerCfg_EcuabCanTp.hpp"
 
 /******************************************************************************/
 /* #DEFINES                                                                   */
 /******************************************************************************/
-#define INTERFACES_EXMCALPORTED_ECUABCANTP
+#define CANTP_CORE_FUNCTIONALITIES                                             \
+              FUNC(void, CANTP_CODE) dummy                         (void);     \
+
+#define CANTP_CORE_FUNCTIONALITIES_VIRTUAL                                     \
+      virtual FUNC(void, CANTP_CODE) dummy                         (void) = 0; \
 
 /******************************************************************************/
 /* MACROS                                                                     */
@@ -22,6 +25,10 @@
 /******************************************************************************/
 /* TYPEDEFS                                                                   */
 /******************************************************************************/
+class class_EcuabCanTp_Functionality{
+   public:
+      CANTP_CORE_FUNCTIONALITIES_VIRTUAL
+};
 
 /******************************************************************************/
 /* CONSTS                                                                     */
