@@ -1,13 +1,13 @@
 #pragma once
 /******************************************************************************/
-/* File   : infEcuabCanTp_ServiceSwcEcuM.hpp                                  */
+/* File   : infServiceSwcCanTpEcuabCanIf.hpp                                  */
 /* Author : NAGARAJA HM (c) since 1982. All rights reserved.                  */
 /******************************************************************************/
 
 /******************************************************************************/
 /* #INCLUDES                                                                  */
 /******************************************************************************/
-#include "CfgEcuabCanTp.hpp"
+#include "CfgServiceSwcCanTp.hpp"
 
 /******************************************************************************/
 /* #DEFINES                                                                   */
@@ -24,8 +24,7 @@
 /******************************************************************************/
 /* FUNCTIONS                                                                  */
 /******************************************************************************/
-extern FUNC(void, ECUABCANTP_CODE) EcuabCanTp_InitFunction   (const CfgEcuabCanTp_Type*   CfgEcuabCanTp_ptr);
-extern FUNC(void, ECUABCANTP_CODE) EcuabCanTp_DeInitFunction (void);
+extern FUNC(void, SERVICESWCCANTP_CODE) infServiceSwcCanTpEcuabCanIf_RxIndication(uint8 lu8IndexBufferRx);
 
 /******************************************************************************/
 /* CONSTS                                                                     */
