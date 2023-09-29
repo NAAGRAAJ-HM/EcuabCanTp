@@ -5,20 +5,20 @@ extern "C"
 {
 #endif
 
-#include "CanTp_Types.hpp"
+#include "Types_SwcServiceCanTp.hpp"
 #include "CfgSwcServiceCanTp.hpp"
 #include "SwcServiceCanTp_Lcfg.hpp"
 #include "PbCfgSwcServiceCanTp.hpp"
 
 #define CANTP_VENDOR_ID                          (30u)
 #define CANTP_MODULE_ID                          (0x23u)
-# define CANTP_AR_RELEASE_MAJOR_VERSION          (4u)
-# define CANTP_AR_RELEASE_MINOR_VERSION          (0u)
-# define CANTP_AR_RELEASE_REVISION_VERSION       (3u)
-# define CANTP_SW_MAJOR_VERSION                  (3u)
-# define CANTP_SW_MINOR_VERSION                  (5u)
-# define CANTP_SW_PATCH_VERSION                  (0u)
-# define CANTP_INSTANCE_ID_DET                   (0x00u)
+#define CANTP_AR_RELEASE_MAJOR_VERSION          (4u)
+#define CANTP_AR_RELEASE_MINOR_VERSION          (0u)
+#define CANTP_AR_RELEASE_REVISION_VERSION       (3u)
+#define CANTP_SW_MAJOR_VERSION                  (3u)
+#define CANTP_SW_MINOR_VERSION                  (5u)
+#define CANTP_SW_PATCH_VERSION                  (0u)
+#define CANTP_INSTANCE_ID_DET                   (0x00u)
 #define CANTP_SID_INIT                           (0x01u)
 #define CANTP_SID_SHUTDOWN                       (0x02u)
 #define CANTP_SID_TRANSMIT                       (0x03u)
@@ -76,67 +76,67 @@ extern "C"
 #define CANTP_ON                                 (0x01u)
 
 #if(!defined (CANTP_APPL_RX_SF_INDICATION))
-# define CANTP_APPL_RX_SF_INDICATION             STD_OFF
+#define CANTP_APPL_RX_SF_INDICATION             STD_OFF
 #endif
 
 #if(!defined (CANTP_APPL_RX_FF_INDICATION))
-# define CANTP_APPL_RX_FF_INDICATION             STD_OFF
+#define CANTP_APPL_RX_FF_INDICATION             STD_OFF
 #endif
 
 #if(!defined (CANTP_APPL_RX_CF_INDICATION))
-# define CANTP_APPL_RX_CF_INDICATION             STD_OFF
+#define CANTP_APPL_RX_CF_INDICATION             STD_OFF
 #endif
 
 #if(!defined (CANTP_APPL_FRAME_TRANSMISSION))
-# define CANTP_APPL_FRAME_TRANSMISSION           STD_OFF
+#define CANTP_APPL_FRAME_TRANSMISSION           STD_OFF
 #endif
 
 #if(!defined (CANTP_APPL_FRAME_CONFIRMATION))
-# define CANTP_APPL_FRAME_CONFIRMATION           STD_OFF
+#define CANTP_APPL_FRAME_CONFIRMATION           STD_OFF
 #endif
 
 #if !defined (CANTP_TX_FC_FROM_ISR)
-# define CANTP_TX_FC_FROM_ISR                    STD_ON
+#define CANTP_TX_FC_FROM_ISR                    STD_ON
 #endif
 
 #if !defined (CANTP_RX_GET_BUFFER_FROM_ISR)
-# define CANTP_RX_GET_BUFFER_FROM_ISR            STD_ON
+#define CANTP_RX_GET_BUFFER_FROM_ISR            STD_ON
 #endif
 
 #if !defined (CANTP_TX_GET_BUFFER_FROM_ISR)
-# define CANTP_TX_GET_BUFFER_FROM_ISR            STD_ON
+#define CANTP_TX_GET_BUFFER_FROM_ISR            STD_ON
 #endif
 
 #if !defined (CANTP_FAULT_TOLERANT_RXBUFFER)
-# define CANTP_FAULT_TOLERANT_RXBUFFER           STD_OFF
+#define CANTP_FAULT_TOLERANT_RXBUFFER           STD_OFF
 #endif
 
 #if !defined (CANTP_IGNORE_FC_WITH_RES_STMIN)
-# define CANTP_IGNORE_FC_WITH_RES_STMIN          STD_OFF
+#define CANTP_IGNORE_FC_WITH_RES_STMIN          STD_OFF
 #endif
 
 #if !defined (CANTP_IGNORE_CF_WITH_WRONG_SN)
-# define CANTP_IGNORE_CF_WITH_WRONG_SN           STD_OFF
+#define CANTP_IGNORE_CF_WITH_WRONG_SN           STD_OFF
 #endif
 
 #if !defined (CANTP_IGNORE_FC_OVFL_INVALID_FS)
-# define CANTP_IGNORE_FC_OVFL_INVALID_FS         STD_OFF
+#define CANTP_IGNORE_FC_OVFL_INVALID_FS         STD_OFF
 #endif
 
 #define CANTP_START_SEC_CODE
 #include "MemMap.hpp"
 
-FUNC(void, CANTP_CODE) CanTp_Init(P2CONST(CanTp_ConfigType, AUTOMATIC, CANTP_INIT_DATA) CfgPtr);
-FUNC(void, CANTP_CODE) CanTp_InitMemory(void);
-FUNC(void, CANTP_CODE) CanTp_Shutdown(void);
-FUNC(Std_ReturnType, CANTP_CODE) CanTp_Transmit(PduIdType CanTpTxSduId, P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) CanTpTxInfoPtr);
+FUNC(void, CANTP_CODE) SwcServiceCanTp_InitFunction(P2CONST(CanTp_ConfigType, AUTOMATIC, CANTP_INIT_DATA) CfgPtr);
+FUNC(void, CANTP_CODE) SwcServiceCanTp_InitFunctionMemory(void);
+FUNC(void, CANTP_CODE) SwcServiceCanTp_Shutdown(void);
+FUNC(Std_ReturnType, CANTP_CODE) SwcServiceCanTp_Transmit(PduIdType CanTpTxSduId, P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) CanTpTxInfoPtr);
 
 #if(CANTP_RXTX_MAINFUNCTION_API == STD_ON)
-FUNC(void, CANTP_CODE) CanTp_MainFunction(void);
+FUNC(void, CANTP_CODE) SwcServiceCanTp_MainFunction(void);
 #endif
 
 #if(CANTP_VERSION_INFO_API == STD_ON)
-FUNC(void, CANTP_CODE) CanTp_GetVersionInfo(P2VAR(Std_VersionInfoType, AUTOMATIC, CANTP_APPL_DATA) versioninfo);
+FUNC(void, CANTP_CODE) SwcServiceCanTp_GetVersionInfo(P2VAR(Std_VersionInfoType, AUTOMATIC, CANTP_APPL_DATA) versioninfo);
 #endif
 
 #if(CANTP_ENABLE_CHANGE_PARAM == STD_ON)
@@ -148,11 +148,11 @@ FUNC(Std_ReturnType, CANTP_CODE) CanTp_ReadParameter(PduIdType id, TPParameterTy
 #endif
 
 #if(CANTP_TC == STD_ON)
-FUNC(Std_ReturnType, CANTP_CODE) CanTp_CancelTransmit(PduIdType CanTpTxSduId);
+FUNC(Std_ReturnType, CANTP_CODE) SwcServiceCanTp_CancelTransmit(PduIdType CanTpTxSduId);
 #endif
 
 #if(CANTP_RC == STD_ON)
-FUNC(Std_ReturnType, CANTP_CODE) CanTp_CancelReceive(PduIdType CanTpRxSduId);
+FUNC(Std_ReturnType, CANTP_CODE) SwcServiceCanTp_CancelReceive(PduIdType CanTpRxSduId);
 #endif
 
 #define CANTP_STOP_SEC_CODE

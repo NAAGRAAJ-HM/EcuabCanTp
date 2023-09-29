@@ -9,23 +9,23 @@ extern "C"
 
 #include "infSwcServicePduRSwcServiceCanTp.hpp"
 #if(CANTP_LOLAYER_CANIF == STD_ON)
-# include "EcuabCanIf.hpp"
+#include "EcuabCanIf.hpp"
 #endif
 
 #if(CANTP_DCM_REQUEST_DETECT == STD_ON)
-# include "SwcApplDcm.hpp"
+#include "SwcApplDcm.hpp"
 #endif
 
 #include "SchM_CanTp.hpp"
 
 #if(CANTP_DEV_ERROR_REPORT == STD_ON)
 
-# include "SwcServiceDet.hpp"
+#include "SwcServiceDet.hpp"
 #endif
 
 #if(CANTP_CONFIGURATION_VARIANT == CANTP_CONFIGURATION_VARIANT_POSTBUILD_LOADABLE)
 
-# include "EcuM_Error.hpp"
+#include "EcuM_Error.hpp"
 #endif
 
 #include "CanTp_Priv.hpp"
@@ -42,121 +42,121 @@ extern "C"
 #endif
 
 #if !defined (CANTP_LOCAL)
-# define CANTP_LOCAL                   static
+#define CANTP_LOCAL                   static
 #endif
 
 #if !defined (CANTP_LOCAL_INLINE)
-# define CANTP_LOCAL_INLINE            LOCAL_INLINE
+#define CANTP_LOCAL_INLINE            LOCAL_INLINE
 #endif
 
 #if !defined (CanTp_PduRRxIndication)
-# define CanTp_PduRRxIndication(CanTpRxPduId, Result)                               (PduR_CanTpRxIndication( (CanTpRxPduId), (Result) ))
+#define CanTp_PduRRxIndication(CanTpRxPduId, Result)                               (PduR_CanTpRxIndication( (CanTpRxPduId), (Result) ))
 #endif
 #if !defined (CanTp_PduRTxConfirmation)
-# define CanTp_PduRTxConfirmation(CanTpTxPduId, Result)                             (PduR_CanTpTxConfirmation( (CanTpTxPduId), (Result) ))
+#define CanTp_PduRTxConfirmation(CanTpTxPduId, Result)                             (PduR_CanTpTxConfirmation( (CanTpTxPduId), (Result) ))
 #endif
 #if !defined (CanTp_PduRStartOfReception)
-# if(CANTP_PDUR_API_403_ENABLED == STD_ON)
-#  define CanTp_PduRStartOfReception(CanTpRxPduId, PduInfoPtr, SduLength, RxBufSizePtr)     (CanTp_BufferStateType)(PduR_CanTpStartOfReception( (CanTpRxPduId), (SduLength), (RxBufSizePtr) ))
-# else
-#  if(CANTP_GENERIC_CONNECTIONS == STD_ON)
-#   define CanTp_PduRStartOfReception(CanTpRxPduId, PduInfoPtr, SduLength, RxBufSizePtr)    (CanTp_BufferStateType)(PduR_CanTpStartOfReception( (CanTpRxPduId), (PduInfoPtr), (SduLength), (RxBufSizePtr) ))
-#  else
-#   define CanTp_PduRStartOfReception(CanTpRxPduId, PduInfoPtr, SduLength, RxBufSizePtr)    (CanTp_BufferStateType)(PduR_CanTpStartOfReception( (CanTpRxPduId), (PduInfoType*)NULL_PTR,     (SduLength), (RxBufSizePtr) ))
-#  endif
-# endif
+#if(CANTP_PDUR_API_403_ENABLED == STD_ON)
+#define CanTp_PduRStartOfReception(CanTpRxPduId, PduInfoPtr, SduLength, RxBufSizePtr)     (CanTp_BufferStateType)(PduR_CanTpStartOfReception( (CanTpRxPduId), (SduLength), (RxBufSizePtr) ))
+#else
+#if(CANTP_GENERIC_CONNECTIONS == STD_ON)
+#define CanTp_PduRStartOfReception(CanTpRxPduId, PduInfoPtr, SduLength, RxBufSizePtr)    (CanTp_BufferStateType)(PduR_CanTpStartOfReception( (CanTpRxPduId), (PduInfoPtr), (SduLength), (RxBufSizePtr) ))
+#else
+#define CanTp_PduRStartOfReception(CanTpRxPduId, PduInfoPtr, SduLength, RxBufSizePtr)    (CanTp_BufferStateType)(PduR_CanTpStartOfReception( (CanTpRxPduId), (PduInfoType*)NULL_PTR,     (SduLength), (RxBufSizePtr) ))
+#endif
+#endif
 #endif
 #if !defined (CanTp_PduRCopyRxData)
-# define CanTp_PduRCopyRxData(CanTpRxPduId, PduInfoPtr, RxBufSizePtr)               (CanTp_BufferStateType)(PduR_CanTpCopyRxData( (CanTpRxPduId), (PduInfoPtr), (RxBufSizePtr) ))
+#define CanTp_PduRCopyRxData(CanTpRxPduId, PduInfoPtr, RxBufSizePtr)               (CanTp_BufferStateType)(PduR_CanTpCopyRxData( (CanTpRxPduId), (PduInfoPtr), (RxBufSizePtr) ))
 #endif
 #if !defined (CanTp_PduRCopyTxData)
-# define CanTp_PduRCopyTxData(CanTpRxPduId, PduInfoPtr, RetryInfoPtr, RxBufSizePtr) (CanTp_BufferStateType)(PduR_CanTpCopyTxData( (CanTpRxPduId), (PduInfoPtr), (RetryInfoType*)NULL_PTR, (RxBufSizePtr) ))
+#define CanTp_PduRCopyTxData(CanTpRxPduId, PduInfoPtr, RetryInfoPtr, RxBufSizePtr) (CanTp_BufferStateType)(PduR_CanTpCopyTxData( (CanTpRxPduId), (PduInfoPtr), (RetryInfoType*)NULL_PTR, (RxBufSizePtr) ))
 #endif
 
 #if !defined (CanTp_DetReportError)
-# if(CANTP_DEV_ERROR_REPORT == STD_ON)
-#  define CanTp_DetReportError(ApiId, ErrorId)                       ((void)Det_ReportError(CANTP_MODULE_ID, CANTP_INSTANCE_ID_DET, (ApiId), (ErrorId) ));
-# else
-#  define CanTp_DetReportError(ApiId, ErrorId)
-# endif
+#if(CANTP_DEV_ERROR_REPORT == STD_ON)
+#define CanTp_DetReportError(ApiId, ErrorId)                       ((void)Det_ReportError(CANTP_MODULE_ID, CANTP_INSTANCE_ID_DET, (ApiId), (ErrorId) ));
+#else
+#define CanTp_DetReportError(ApiId, ErrorId)
+#endif
 #endif
 
 #if !defined (CanTp_EcuMReportBswError)
-# if(CANTP_CONFIGURATION_VARIANT == CANTP_CONFIGURATION_VARIANT_POSTBUILD_LOADABLE)
-#  define CanTp_EcuMReportBswError(EcuMErrorId)                      (EcuM_BswErrorHook((uint16) CANTP_MODULE_ID, (EcuMErrorId)));
-# else
-#  define CanTp_EcuMReportBswError(EcuMErrorId)
-# endif
+#if(CANTP_CONFIGURATION_VARIANT == CANTP_CONFIGURATION_VARIANT_POSTBUILD_LOADABLE)
+#define CanTp_EcuMReportBswError(EcuMErrorId)                      (EcuM_BswErrorHook((uint16) CANTP_MODULE_ID, (EcuMErrorId)));
+#else
+#define CanTp_EcuMReportBswError(EcuMErrorId)
+#endif
 #endif
 
 #if !defined (CanTp_DcmForwardNAE)
-# if((CANTP_DCM_REQUEST_DETECT == STD_ON))
-#  define CanTp_DcmForwardNAE(CanTpRxPduId, N_AE)                  (Dcm_OnRequestDetection( (CanTpRxPduId), (N_AE) ))
-# else
-#  define CanTp_DcmForwardNAE(CanTpRxPduId, N_AE)
-# endif
+#if((CANTP_DCM_REQUEST_DETECT == STD_ON))
+#define CanTp_DcmForwardNAE(CanTpRxPduId, N_AE)                  (Dcm_OnRequestDetection( (CanTpRxPduId), (N_AE) ))
+#else
+#define CanTp_DcmForwardNAE(CanTpRxPduId, N_AE)
+#endif
 #endif
 
 #if(CANTP_APPL_RX_SF_INDICATION == STD_ON)
-# define CanTp_ApplRxSFIndication(PduRRxPduId, PduInfo)              (Appl_CanTpRxSFIndication( (PduRRxPduId), (PduInfo)));
+#define CanTp_ApplRxSFIndication(PduRRxPduId, PduInfo)              (Appl_CanTpRxSFIndication( (PduRRxPduId), (PduInfo)));
 #else
-# define CanTp_ApplRxSFIndication(PduRRxPduId, PduInfo)
+#define CanTp_ApplRxSFIndication(PduRRxPduId, PduInfo)
 #endif
 
 #if(CANTP_APPL_RX_FF_INDICATION == STD_ON)
-# define CanTp_ApplRxFFIndication(PduRRxPduId, PduInfo)              (Appl_CanTpRxFFIndication( (PduRRxPduId), (PduInfo)));
+#define CanTp_ApplRxFFIndication(PduRRxPduId, PduInfo)              (Appl_CanTpRxFFIndication( (PduRRxPduId), (PduInfo)));
 #else
-# define CanTp_ApplRxFFIndication(PduRRxPduId, PduInfo)
+#define CanTp_ApplRxFFIndication(PduRRxPduId, PduInfo)
 #endif
 
 #if(CANTP_APPL_RX_CF_INDICATION == STD_ON)
-# define CanTp_ApplRxCFIndication(PduRRxPduId, PduInfo)              (Appl_CanTpRxCFIndication( (PduRRxPduId), (PduInfo)));
+#define CanTp_ApplRxCFIndication(PduRRxPduId, PduInfo)              (Appl_CanTpRxCFIndication( (PduRRxPduId), (PduInfo)));
 #else
-# define CanTp_ApplRxCFIndication(PduRRxPduId, PduInfo)
+#define CanTp_ApplRxCFIndication(PduRRxPduId, PduInfo)
 #endif
 
 #if(CANTP_APPL_FRAME_TRANSMISSION == STD_ON)
-# define CanTp_ApplFrameTransmission(CanIfTxPduId, PduInfo)          (Appl_CanTpFrameTransmission((CanIfTxPduId), (PduInfo)));
+#define CanTp_ApplFrameTransmission(CanIfTxPduId, PduInfo)          (Appl_CanTpFrameTransmission((CanIfTxPduId), (PduInfo)));
 #else
-# define CanTp_ApplFrameTransmission(CanIfTxPduId, PduInfo)
+#define CanTp_ApplFrameTransmission(CanIfTxPduId, PduInfo)
 #endif
 
 #if(CANTP_APPL_FRAME_CONFIRMATION == STD_ON)
-# define CanTp_ApplFrameTxConfirmation(CanIfTxPduId)                 (Appl_CanTpFrameTxConfirmation((CanIfTxPduId)));
+#define CanTp_ApplFrameTxConfirmation(CanIfTxPduId)                 (Appl_CanTpFrameTxConfirmation((CanIfTxPduId)));
 #else
-# define CanTp_ApplFrameTxConfirmation(CanIfTxPduId)
+#define CanTp_ApplFrameTxConfirmation(CanIfTxPduId)
 #endif
 
 #if(CANTP_TX_FC_FROM_ISR == STD_ON)
 
-# define CanTp_RxTransmitFrame_ISR(ptr)                              (CanTp_RxTransmitFrame( (ptr) ));
+#define CanTp_RxTransmitFrame_ISR(ptr)                              (CanTp_RxTransmitFrame( (ptr) ));
 #else
 
-# define CanTp_RxTransmitFrame_ISR(ptr)
+#define CanTp_RxTransmitFrame_ISR(ptr)
 #endif
 
 #if(CANTP_RX_GET_BUFFER_FROM_ISR == STD_ON)
 
-# define CanTp_RxGetBuffer_ISR(ptr)                                  (CanTp_RxGetBuffer( (ptr) ));
+#define CanTp_RxGetBuffer_ISR(ptr)                                  (CanTp_RxGetBuffer( (ptr) ));
 #else
 
-# define CanTp_RxGetBuffer_ISR(ptr)
+#define CanTp_RxGetBuffer_ISR(ptr)
 #endif
 
 #if(CANTP_TX_GET_BUFFER_FROM_ISR == STD_ON)
 
-# define CanTp_TxGetBuffer_ISR(ptr)                                  (CanTp_TxGetBuffer( (ptr) ));
+#define CanTp_TxGetBuffer_ISR(ptr)                                  (CanTp_TxGetBuffer( (ptr) ));
 #else
 
-# define CanTp_TxGetBuffer_ISR(ptr)
+#define CanTp_TxGetBuffer_ISR(ptr)
 #endif
 
 #if !defined (CanTp_DetAssert)
-# if(CANTP_DEV_ERROR_DETECT == STD_ON)
-#  define CanTp_DetAssert(Check, ApiId, ErrorId)                     { if(!(Check)) {CanTp_DetReportError( (ApiId), (ErrorId) ) }}
-# else
-#  define CanTp_DetAssert(Check, ApiId, ErrorId)
-# endif
+#if(CANTP_DEV_ERROR_DETECT == STD_ON)
+#define CanTp_DetAssert(Check, ApiId, ErrorId)                     { if(!(Check)) {CanTp_DetReportError( (ApiId), (ErrorId) ) }}
+#else
+#define CanTp_DetAssert(Check, ApiId, ErrorId)
+#endif
 #endif
 
 #define CanTp_EnterCritical()                                        SchM_Enter_CanTp_CANTP_EXCLUSIVE_AREA_0()
@@ -164,25 +164,25 @@ extern "C"
 
 #define CANTP_START_SEC_VAR_INIT_8BIT
 #include "MemMap.hpp"
-CANTP_LOCAL VAR(CanTp_InitStatusType, CANTP_VAR_INIT) CanTp_InitState = CANTP_STATUS_NOT_INITIALIZED;
+CANTP_LOCAL VAR(SwcServiceCanTp_InitFunctionStatusType, CANTP_VAR_INIT) SwcServiceCanTp_InitFunctionState = CANTP_STATUS_NOT_INITIALIZED;
 #define CANTP_STOP_SEC_VAR_INIT_8BIT
 #include "MemMap.hpp"
 
 #if(CANTP_DYN_CHANNEL_ASSIGNMENT == STD_ON)
-# define CANTP_START_SEC_VAR_NOINIT_8BIT
-# include "MemMap.hpp"
+#define CANTP_START_SEC_VAR_NOINIT_8BIT
+#include "MemMap.hpp"
 CANTP_LOCAL VAR(PduIdType, CANTP_VAR_NOINIT) CanTp_NumRxChannelsAvail;
 CANTP_LOCAL VAR(PduIdType, CANTP_VAR_NOINIT) CanTp_NumTxChannelsAvail;
-# define CANTP_STOP_SEC_VAR_NOINIT_8BIT
-# include "MemMap.hpp"
+#define CANTP_STOP_SEC_VAR_NOINIT_8BIT
+#include "MemMap.hpp"
 #endif
 
 #if(CANTP_USE_INIT_POINTER == STD_ON)
-# define CANTP_START_SEC_VAR_NOINIT_UNSPECIFIED
-# include "MemMap.hpp"
+#define CANTP_START_SEC_VAR_NOINIT_UNSPECIFIED
+#include "MemMap.hpp"
 CANTP_LOCAL P2CONST(CanTp_ConfigType, CANTP_VAR_NOINIT, CANTP_INIT_DATA) CanTp_ConfigDataPtr;
-# define CANTP_STOP_SEC_VAR_NOINIT_UNSPECIFIED
-# include "MemMap.hpp"
+#define CANTP_STOP_SEC_VAR_NOINIT_UNSPECIFIED
+#include "MemMap.hpp"
 #endif
 
 #define CANTP_START_SEC_CODE
@@ -190,9 +190,9 @@ CANTP_LOCAL P2CONST(CanTp_ConfigType, CANTP_VAR_NOINIT, CANTP_INIT_DATA) CanTp_C
 
 #if(CANTP_RXTX_MAINFUNCTION_API != STD_ON)
 
-FUNC(void,  CANTP_CODE)   CanTp_MainFunctionRx(void);
+FUNC(void,  CANTP_CODE)   SwcServiceCanTp_MainFunctionRx(void);
 
-FUNC(void,  CANTP_CODE)   CanTp_MainFunctionTx(void);
+FUNC(void,  CANTP_CODE)   SwcServiceCanTp_MainFunctionTx(void);
 #endif
 
 CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_RxInitState(CanTp_RxStatePtrType pTpRxState);
@@ -213,10 +213,10 @@ CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_CanIfRxIndicationCF(CanTp_RxStat
 
 CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_CanIfRxIndicationFC(CanTp_TxStatePtrType pTpTxState, P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPdu);
 
-CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_CanIfRxIndication(PduIdType SduHdl,
-                                                           uint8 FrameType,
-                                                           P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPayloadInfo,
-                                                           P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pMetadataInfo);
+CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_CanIfRxIndication(PduIdType SduHdl
+   ,                                                          uint8 FrameType
+   ,                                                          P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPayloadInfo
+   ,                                                          P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pMetadataInfo);
 
 #if(CANTP_TX_OPTIMIZATION != CANTP_OPT_ZERO_SDU)
 
@@ -228,13 +228,13 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_CanIfTxConfirmation(CanTp_TxStatePtrTyp
 CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_CanIfTxConfirmationFC(CanTp_RxStatePtrType pTpRxState);
 #endif
 
-CANTP_LOCAL FUNC(CanTp_TxResultType, CANTP_CODE) CanTp_CanIfTransmitFrame(P2CONST(CanTp_PduTxInfoType, AUTOMATIC, CANTP_APPL_DATA) pPduTxData,
-                                                                          P2VAR(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pTpData);
+CANTP_LOCAL FUNC(CanTp_TxResultType, CANTP_CODE) CanTp_CanIfTransmitFrame(P2CONST(CanTp_PduTxInfoType, AUTOMATIC, CANTP_APPL_DATA) pPduTxData
+   ,                                                                         P2VAR(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pTpData);
 
-CANTP_LOCAL_INLINE FUNC(Std_ReturnType, CANTP_CODE) CanTp_TxStartConnection(PduIdType TxSduSnv,
-                                                                            PduIdType TxHdl,
-                                                                            PduLengthType SduLength,
-                                                                            P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) CanTpTxInfoPtr);
+CANTP_LOCAL_INLINE FUNC(Std_ReturnType, CANTP_CODE) CanTp_TxStartConnection(PduIdType TxSduSnv
+   ,                                                                           PduIdType TxHdl
+   ,                                                                           PduLengthType SduLength
+   ,                                                                           P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) CanTpTxInfoPtr);
 
 #if(CANTP_TX_OPTIMIZATION != CANTP_OPT_ZERO_SDU)
 
@@ -247,17 +247,17 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_TxTransmitFrame(CanTp_TxStatePtrType pT
 
 #if(CANTP_TRANSMITFCTOFLOLAYERFCTS == STD_ON)
 
-CANTP_LOCAL_INLINE FUNC(Std_ReturnType, CANTP_CODE) CanTp_LoLayerTransmit(CanTp_DirectionType Direction,
-                                                                          PduIdType SduHdl,
-                                                                          PduIdType LoLayerTxPduId,
-                                                                          P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pTpData);
+CANTP_LOCAL_INLINE FUNC(Std_ReturnType, CANTP_CODE) CanTp_LoLayerTransmit(CanTp_DirectionType Direction
+   ,                                                                         PduIdType SduHdl
+   ,                                                                         PduIdType LoLayerTxPduId
+   ,                                                                         P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pTpData);
 #endif
 
 #if(CANTP_CANCELTRANSMITFCTOFLOLAYERFCTS == STD_ON)
 
-CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_LoLayerCancelTransmit(CanTp_DirectionType Direction,
-                                                                      PduIdType SduHdl,
-                                                                      PduIdType LoLayerTxPduId);
+CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_LoLayerCancelTransmit(CanTp_DirectionType Direction
+   ,                                                                     PduIdType SduHdl
+   ,                                                                     PduIdType LoLayerTxPduId);
 #endif
 
 #if(CANTP_SINGLE_RX_BUFFER_OPTIMIZED == STD_OFF)
@@ -293,42 +293,42 @@ CANTP_LOCAL_INLINE FUNC(uint8, CANTP_CODE) CanTp_Util_GetPaddingLength(uint8 Cur
 
 #if(CANTP_GENERIC_CONNECTIONS == STD_ON)
 
-CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_Util_RxAssembleSduMetadata(uint8 Addressing,
-                                                                           P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPayloadInfo,
-                                                                           P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pMetadataInfo,
-                                                                           P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA) pDest,
-                                                                           P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA) pLength);
+CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_Util_RxAssembleSduMetadata(uint8 Addressing
+   ,                                                                          P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPayloadInfo
+   ,                                                                          P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pMetadataInfo
+   ,                                                                          P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA) pDest
+   ,                                                                          P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA) pLength);
 
-CANTP_LOCAL_INLINE FUNC(boolean, CANTP_CODE) CanTp_Util_RxSduMetadataFromDataPduMatch(P2CONST(CanTp_RxStateType, AUTOMATIC, CANTP_APPL_DATA) pTpRxState,
-                                                                                      P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPayloadInfo,
-                                                                                      P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pMetadataInfo);
+CANTP_LOCAL_INLINE FUNC(boolean, CANTP_CODE) CanTp_Util_RxSduMetadataFromDataPduMatch(P2CONST(CanTp_RxStateType, AUTOMATIC, CANTP_APPL_DATA) pTpRxState
+   ,                                                                                     P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPayloadInfo
+   ,                                                                                     P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pMetadataInfo);
 
-CANTP_LOCAL_INLINE FUNC(boolean, CANTP_CODE) CanTp_Util_TxSduMetadataFromFcPduMatch(P2CONST(CanTp_TxStateType, AUTOMATIC, CANTP_APPL_DATA) pTpTxState,
-                                                                                    P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPayloadInfo,
-                                                                                    P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pMetadataInfo);
+CANTP_LOCAL_INLINE FUNC(boolean, CANTP_CODE) CanTp_Util_TxSduMetadataFromFcPduMatch(P2CONST(CanTp_TxStateType, AUTOMATIC, CANTP_APPL_DATA) pTpTxState
+   ,                                                                                   P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPayloadInfo
+   ,                                                                                   P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pMetadataInfo);
 
-CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_Util_RxExtractSduMetadataInfo(CanTp_RxStatePtrType pTpRxState,
-                                                                              P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPayloadInfo,
-                                                                              P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pMetadataInfo);
+CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_Util_RxExtractSduMetadataInfo(CanTp_RxStatePtrType pTpRxState
+   ,                                                                             P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPayloadInfo
+   ,                                                                             P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pMetadataInfo);
 
-CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_Util_TxExtractSduMetadataInfo(CanTp_TxStatePtrType pTpTxState,
-                                                                              P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) CanTpTxInfoPtr);
+CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_Util_TxExtractSduMetadataInfo(CanTp_TxStatePtrType pTpTxState
+   ,                                                                             P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) CanTpTxInfoPtr);
 #endif
 
-# if((CANTP_RX_HAS_EXTENDED_ADDRESSING == STD_ON) || (CANTP_RX_HAS_MIXED11_ADDRESSING == STD_ON) || (CANTP_RX_HAS_MIXED29_ADDRESSING == STD_ON))
-# if((CANTP_GENERIC_CONNECTIONS == STD_ON) && ((CANTP_RX_HAS_MIXED11_ADDRESSING == STD_ON) || (CANTP_RX_HAS_MIXED29_ADDRESSING == STD_ON)))
+#if((CANTP_RX_HAS_EXTENDED_ADDRESSING == STD_ON) || (CANTP_RX_HAS_MIXED11_ADDRESSING == STD_ON) || (CANTP_RX_HAS_MIXED29_ADDRESSING == STD_ON))
+#if((CANTP_GENERIC_CONNECTIONS == STD_ON) && ((CANTP_RX_HAS_MIXED11_ADDRESSING == STD_ON) || (CANTP_RX_HAS_MIXED29_ADDRESSING == STD_ON)))
 CANTP_LOCAL_INLINE FUNC(uint8, CANTP_CODE) CanTp_Util_RxGetFCInPayloadAddressInfo(P2CONST(CanTp_RxStateType, AUTOMATIC, CANTP_APPL_DATA) pTpRxState);
-# else
-#  define CanTp_Util_RxGetFCInPayloadAddressInfo(pTpRxState)    CanTp_RxCfg_GetTxFcAddress((pTpRxState)->RxHdl)
-# endif
+#else
+#define CanTp_Util_RxGetFCInPayloadAddressInfo(pTpRxState)    CanTp_RxCfg_GetTxFcAddress((pTpRxState)->RxHdl)
+#endif
 #endif
 
 #if((CANTP_TX_HAS_EXTENDED_ADDRESSING == STD_ON) || (CANTP_TX_HAS_MIXED11_ADDRESSING == STD_ON) || (CANTP_TX_HAS_MIXED29_ADDRESSING == STD_ON))
-# if(CANTP_GENERIC_CONNECTIONS == STD_ON)
+#if(CANTP_GENERIC_CONNECTIONS == STD_ON)
 CANTP_LOCAL_INLINE FUNC(uint8, CANTP_CODE) CanTp_Util_TxGetInPayloadAddressInfo(P2CONST(CanTp_TxStateType, AUTOMATIC, CANTP_APPL_DATA) pTpTxState);
-# else
-#  define CanTp_Util_TxGetInPayloadAddressInfo(pTpTxState)    CanTp_TxCfg_GetTxAddress((pTpTxState)->TxHdl)
-# endif
+#else
+#define CanTp_Util_TxGetInPayloadAddressInfo(pTpTxState)    CanTp_TxCfg_GetTxAddress((pTpTxState)->TxHdl)
+#endif
 #endif
 
 #if(CANTP_RX_HAS_HALF_DUPLEX == STD_ON)
@@ -351,14 +351,14 @@ CANTP_LOCAL_INLINE FUNC(PduIdType, CANTP_CODE) CanTp_Cfg_GetSduHdlByRxPduOnly (P
 CANTP_LOCAL_INLINE FUNC(PduIdType, CANTP_CODE) CanTp_Cfg_GetSduHdlByRxPduAddress (PduIdType RxPduId, uint8 FrameType, uint8 Address);
 #endif
 
-CANTP_LOCAL FUNC(CanTp_RxStatePtrType, CANTP_CODE) CanTp_RxGetFreeChannelPtr(PduIdType RxHdl,
-                                                                             P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPayloadInfo,
-                                                                             P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pMetadataInfo);
+CANTP_LOCAL FUNC(CanTp_RxStatePtrType, CANTP_CODE) CanTp_RxGetFreeChannelPtr(PduIdType RxHdl
+   ,                                                                            P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPayloadInfo
+   ,                                                                            P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pMetadataInfo);
 
 CANTP_LOCAL FUNC(CanTp_RxStatePtrType, CANTP_CODE) CanTp_RxGetActiveChannelPtr(PduIdType RxHdl);
 
-CANTP_LOCAL FUNC(CanTp_TxStatePtrType, CANTP_CODE) CanTp_TxGetFreeChannelPtr(PduIdType TxHdl,
-                                                                             P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) CanTpTxInfoPtr);
+CANTP_LOCAL FUNC(CanTp_TxStatePtrType, CANTP_CODE) CanTp_TxGetFreeChannelPtr(PduIdType TxHdl
+   ,                                                                            P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) CanTpTxInfoPtr);
 
 CANTP_LOCAL FUNC(CanTp_TxStatePtrType, CANTP_CODE) CanTp_TxGetActiveChannelPtr(PduIdType TxHdl);
 
@@ -369,12 +369,12 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_TxQueueProcess(PduIdType TxConfPduId);
 CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_TxQueueCancel(PduIdType SduHdl, CanTp_DirectionType Direction);
 #endif
 
-CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_Util_MemCpy(P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA) pDest,
-                                                            P2CONST(uint8, AUTOMATIC, CANTP_APPL_DATA) pSrc,
-                                                            uint16 Count){
+CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_Util_MemCpy(P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA) pDest
+   ,                                                           P2CONST(uint8, AUTOMATIC, CANTP_APPL_DATA) pSrc
+   ,                                                           uint16 Count){
   uint16_least i;
 
-  for (i = 0; i < Count; i++){
+  for(i = 0; i < Count; i++){
     pDest[i] = pSrc[i];
   }
 }
@@ -403,13 +403,13 @@ CANTP_LOCAL_INLINE FUNC(boolean, CANTP_CODE) CanTp_Util_CheckConfigValidity(void
   PduIdType lSduId;
   PduIdType lSduHdl;
 
-# if(CANTP_LOLAYERFCTS == STD_ON)
+#if(CANTP_LOLAYERFCTS == STD_ON)
   CanTp_LoLayerFctsIterType lLoLayerIdx;
-# endif
+#endif
 
-# if(CANTP_RX_OPTIMIZATION != CANTP_OPT_ZERO_SDU)
+#if(CANTP_RX_OPTIMIZATION != CANTP_OPT_ZERO_SDU)
 
-  for (lSduId = 0; lSduId < CanTp_Cfg_GetNumRxSduIds(); lSduId++){
+  for(lSduId = 0; lSduId < CanTp_Cfg_GetNumRxSduIds(); lSduId++){
     if(CanTp_RxSduSnvIsAvailable(lSduId)){
       lSduHdl = CanTp_RxGetSduHdlBySduId(lSduId);
 
@@ -430,11 +430,11 @@ CANTP_LOCAL_INLINE FUNC(boolean, CANTP_CODE) CanTp_Util_CheckConfigValidity(void
     }
 
   }
-# endif
+#endif
 
-# if(CANTP_TX_OPTIMIZATION != CANTP_OPT_ZERO_SDU)
+#if(CANTP_TX_OPTIMIZATION != CANTP_OPT_ZERO_SDU)
 
-  for (lSduId = 0; lSduId < CanTp_Cfg_GetNumTxSduIds(); lSduId++){
+  for(lSduId = 0; lSduId < CanTp_Cfg_GetNumTxSduIds(); lSduId++){
     if(CanTp_TxSduSnvIsAvailable(lSduId)){
       lSduHdl = CanTp_TxGetSduHdlBySduId(lSduId);
 
@@ -450,7 +450,7 @@ CANTP_LOCAL_INLINE FUNC(boolean, CANTP_CODE) CanTp_Util_CheckConfigValidity(void
         lResult = FALSE;
       }
 
-# if(CANTP_SUPPORT_MULTIPLE_ADDRESSING == STD_ON)
+#if(CANTP_SUPPORT_MULTIPLE_ADDRESSING == STD_ON)
       if(CanTp_TxGetAdrOffset(lSduHdl) == 0u)
       {
         lTmp = CanTp_Util_AssertLessEqual((CanTp_TxCfg_GetMaxPayload(lSduHdl) + (uint32)1), CANTP_MAX_FRAME_LENGTH);
@@ -467,78 +467,78 @@ CANTP_LOCAL_INLINE FUNC(boolean, CANTP_CODE) CanTp_Util_CheckConfigValidity(void
           lResult = FALSE;
         }
       }
-# else
-#  if((CANTP_SUPPORT_STANDARD_ADDRESSING == STD_ON) || (CANTP_SUPPORT_NORMALFIXED_ADDRESSING == STD_ON))
+#else
+#if((CANTP_SUPPORT_STANDARD_ADDRESSING == STD_ON) || (CANTP_SUPPORT_NORMALFIXED_ADDRESSING == STD_ON))
       lTmp = CanTp_Util_AssertLessEqual((CanTp_TxCfg_GetMaxPayload(lSduHdl) + (uint32)1), CANTP_MAX_FRAME_LENGTH);
       if(lTmp == FALSE)
       {
         lResult = FALSE;
       }
-#  else
+#else
       lTmp = CanTp_Util_AssertLessEqual((CanTp_TxCfg_GetMaxPayload(lSduHdl) + (uint32)2), CANTP_MAX_FRAME_LENGTH);
       if(lTmp == FALSE)
       {
         lResult = FALSE;
       }
-#  endif
-# endif
+#endif
+#endif
 
     }
 
   }
-# endif
+#endif
 
-# if(CANTP_CONSTANT_BS == STD_ON)
+#if(CANTP_CONSTANT_BS == STD_ON)
   lTmp = CanTp_Util_AssertLessEqual(CanTp_GetSizeOfRxSduCfg(), CanTp_GetSizeOfCalcBS());
   if(lTmp == FALSE){
     lResult = FALSE;
   }
-# endif
-# if(CANTP_ENABLE_CHANGE_PARAM == STD_ON)
+#endif
+#if(CANTP_ENABLE_CHANGE_PARAM == STD_ON)
   lTmp = CanTp_Util_AssertLessEqual(CanTp_GetSizeOfRxSduCfg(), CanTp_GetSizeOfDynFCParameters());
   if(lTmp == FALSE){
     lResult = FALSE;
   }
-# endif
-# if(CANTP_DYN_CHANNEL_ASSIGNMENT == STD_ON)
+#endif
+#if(CANTP_DYN_CHANNEL_ASSIGNMENT == STD_ON)
   lTmp = CanTp_Util_AssertLessEqual(CanTp_GetSizeOfRxSduCfg(), CanTp_GetSizeOfRxChannelMap());
   if(lTmp == FALSE){
     lResult = FALSE;
   }
-# else
+#else
   lTmp = CanTp_Util_AssertLessEqual(CanTp_GetSizeOfRxSduCfg(), CanTp_GetSizeOfRxState());
   if(lTmp == FALSE){
     lResult = FALSE;
   }
-# endif
+#endif
 
-# if(CANTP_DYN_CHANNEL_ASSIGNMENT == STD_ON)
+#if(CANTP_DYN_CHANNEL_ASSIGNMENT == STD_ON)
   lTmp = CanTp_Util_AssertLessEqual(CanTp_GetSizeOfTxSduCfg(), CanTp_GetSizeOfTxChannelMap());
   if(lTmp == FALSE){
     lResult = FALSE;
   }
-# else
+#else
   lTmp = CanTp_Util_AssertLessEqual(CanTp_GetSizeOfTxSduCfg(), CanTp_GetSizeOfTxState());
   if(lTmp == FALSE){
     lResult = FALSE;
   }
-# endif
+#endif
 
-# if(CANTP_TRANSMIT_QUEUE == STD_ON)
+#if(CANTP_TRANSMIT_QUEUE == STD_ON)
   lTmp = CanTp_Util_AssertLessEqual(CanTp_GetSizeOfTxSemaphores(), CanTp_GetSizeOfTxQueue());
   if(lTmp == FALSE){
     lResult = FALSE;
   }
-# endif
+#endif
 
-# if(CANTP_LOLAYERFCTS == STD_ON)
-  for (lLoLayerIdx = 0; lLoLayerIdx < CanTp_GetSizeOfLoLayerFcts(); lLoLayerIdx++){
+#if(CANTP_LOLAYERFCTS == STD_ON)
+  for(lLoLayerIdx = 0; lLoLayerIdx < CanTp_GetSizeOfLoLayerFcts(); lLoLayerIdx++){
     if(CanTp_GetTransmitFctOfLoLayerFcts(lLoLayerIdx) == NULL_PTR){
       CanTp_DetReportError(CANTP_SID_INIT, CANTP_E_PARAM_CONFIG)
       lResult = FALSE;
     }
   }
-# endif
+#endif
 
 #endif
 
@@ -572,7 +572,7 @@ CANTP_LOCAL_INLINE FUNC(uint8, CANTP_CODE) CanTp_Util_GetPaddingLength(uint8 Cur
       lPaddedLength = CANTP_CAN20_FRAME_LENGTH;
     }
   }
-# if(CANTP_SUPPORT_CANFD == STD_ON)
+#if(CANTP_SUPPORT_CANFD == STD_ON)
   else{
     if(CanType == CANTP_CANTYPE_CANFD){
       if(CurrentLength <= 24u)
@@ -589,9 +589,9 @@ CANTP_LOCAL_INLINE FUNC(uint8, CANTP_CODE) CanTp_Util_GetPaddingLength(uint8 Cur
     }
 
   }
-# else
+#else
   CANTP_DUMMY_STATEMENT(CanType);
-# endif
+#endif
 
   return lPaddedLength;
 }
@@ -599,57 +599,57 @@ CANTP_LOCAL_INLINE FUNC(uint8, CANTP_CODE) CanTp_Util_GetPaddingLength(uint8 Cur
 
 #if(CANTP_GENERIC_CONNECTIONS == STD_ON)
 
-CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_Util_RxAssembleSduMetadata(uint8 Addressing,
-                                                                           P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPayloadInfo,
-                                                                           P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pMetadataInfo,
-                                                                           P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA) pDest,
-                                                                           P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA) pLength){
+CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_Util_RxAssembleSduMetadata(uint8 Addressing
+   ,                                                                          P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPayloadInfo
+   ,                                                                          P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pMetadataInfo
+   ,                                                                          P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA) pDest
+   ,                                                                          P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA) pLength){
   CANTP_DUMMY_STATEMENT(pPayloadInfo);
   CANTP_DUMMY_STATEMENT(pMetadataInfo);
 
   switch(Addressing){
-# if((CANTP_RX_HAS_EXTENDED_ADDRESSING == STD_ON) || (CANTP_RX_HAS_MIXED11_ADDRESSING == STD_ON))
+#if((CANTP_RX_HAS_EXTENDED_ADDRESSING == STD_ON) || (CANTP_RX_HAS_MIXED11_ADDRESSING == STD_ON))
     case CANTP_ADDRESS_FORMAT_EXTENDED:
     case CANTP_ADDRESS_FORMAT_MIXED11:
       pDest[0] = pPayloadInfo->SduDataPtr[0];
       *pLength = 1;
       break;
-# endif
+#endif
 
-# if(CANTP_RX_HAS_NORMALFIXED_ADDRESSING == STD_ON)
+#if(CANTP_RX_HAS_NORMALFIXED_ADDRESSING == STD_ON)
     case CANTP_ADDRESS_FORMAT_NORMALFIXED:
       pDest[0] = pMetadataInfo->SduDataPtr[0];
       pDest[1] = pMetadataInfo->SduDataPtr[1];
       *pLength = 2;
       break;
-# endif
+#endif
 
-# if(CANTP_RX_HAS_MIXED29_ADDRESSING == STD_ON)
+#if(CANTP_RX_HAS_MIXED29_ADDRESSING == STD_ON)
     case CANTP_ADDRESS_FORMAT_MIXED29:
       pDest[0] = pMetadataInfo->SduDataPtr[0];
       pDest[1] = pMetadataInfo->SduDataPtr[1];
       pDest[2] = pPayloadInfo->SduDataPtr[0];
       *pLength = 3;
       break;
-# endif
+#endif
 
     default:
       break;
   }
 }
 
-CANTP_LOCAL_INLINE FUNC(boolean, CANTP_CODE) CanTp_Util_RxSduMetadataFromDataPduMatch(P2CONST(CanTp_RxStateType, AUTOMATIC, CANTP_APPL_DATA) pTpRxState,
-                                                                                      P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPayloadInfo,
-                                                                                      P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pMetadataInfo){
+CANTP_LOCAL_INLINE FUNC(boolean, CANTP_CODE) CanTp_Util_RxSduMetadataFromDataPduMatch(P2CONST(CanTp_RxStateType, AUTOMATIC, CANTP_APPL_DATA) pTpRxState
+   ,                                                                                     P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPayloadInfo
+   ,                                                                                     P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pMetadataInfo){
   boolean result = TRUE;
   uint8 lSduMetadataLength;
   uint8 lSduMetadata[CANTP_MAX_SDU_METADATA_LENGTH];
   uint8_least i;
 
-  CanTp_Util_RxAssembleSduMetadata(CanTp_RxCfg_GetAddressingFormat(pTpRxState->RxHdl), pPayloadInfo, pMetadataInfo,
-                                   lSduMetadata, &lSduMetadataLength);
+  CanTp_Util_RxAssembleSduMetadata(CanTp_RxCfg_GetAddressingFormat(pTpRxState->RxHdl), pPayloadInfo, pMetadataInfo
+   ,                                  lSduMetadata, &lSduMetadataLength);
 
-  for (i = 0; i < pTpRxState->SduMetadataLength; i++){
+  for(i = 0; i < pTpRxState->SduMetadataLength; i++){
     if(pTpRxState->SduMetadata[i] != lSduMetadata[i]){
       result = FALSE;
       break;
@@ -659,44 +659,44 @@ CANTP_LOCAL_INLINE FUNC(boolean, CANTP_CODE) CanTp_Util_RxSduMetadataFromDataPdu
   return result;
 }
 
-CANTP_LOCAL_INLINE FUNC(boolean, CANTP_CODE) CanTp_Util_TxSduMetadataFromFcPduMatch(P2CONST(CanTp_TxStateType, AUTOMATIC, CANTP_APPL_DATA) pTpTxState,
-                                                                                    P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPayloadInfo,
-                                                                                    P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pMetadataInfo){
+CANTP_LOCAL_INLINE FUNC(boolean, CANTP_CODE) CanTp_Util_TxSduMetadataFromFcPduMatch(P2CONST(CanTp_TxStateType, AUTOMATIC, CANTP_APPL_DATA) pTpTxState
+   ,                                                                                   P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPayloadInfo
+   ,                                                                                   P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pMetadataInfo){
   boolean result = TRUE;
   CANTP_DUMMY_STATEMENT(pPayloadInfo);
   CANTP_DUMMY_STATEMENT(pMetadataInfo);
 
   if(pTpTxState->SduMetadataLength != 0u){
-# if(CANTP_TX_HAS_NORMALFIXED_ADDRESSING == STD_ON) || (CANTP_TX_HAS_MIXED29_ADDRESSING == STD_ON)
+#if(CANTP_TX_HAS_NORMALFIXED_ADDRESSING == STD_ON) || (CANTP_TX_HAS_MIXED29_ADDRESSING == STD_ON)
     uint8_least i;
     uint8 lSduMetadata[CANTP_MAX_SDU_METADATA_LENGTH];
-# endif
+#endif
 
     switch(CanTp_TxCfg_GetAddressingFormat(pTpTxState->TxHdl)){
-# if(CANTP_TX_HAS_EXTENDED_ADDRESSING == STD_ON)
+#if(CANTP_TX_HAS_EXTENDED_ADDRESSING == STD_ON)
       case CANTP_ADDRESS_FORMAT_EXTENDED:
         if(pPayloadInfo->SduDataPtr[0] != CanTp_TxCfg_GetRxFcAddress(pTpTxState->TxHdl))
         {
           result = FALSE;
         }
         break;
-# endif
+#endif
 
-# if(CANTP_TX_HAS_MIXED11_ADDRESSING == STD_ON)
+#if(CANTP_TX_HAS_MIXED11_ADDRESSING == STD_ON)
       case CANTP_ADDRESS_FORMAT_MIXED11:
         if(pPayloadInfo->SduDataPtr[0] != pTpTxState->SduMetadata[pTpTxState->SduMetadataLength - 1u])
         {
           result = FALSE;
         }
         break;
-# endif
+#endif
 
-# if(CANTP_TX_HAS_NORMALFIXED_ADDRESSING == STD_ON)
+#if(CANTP_TX_HAS_NORMALFIXED_ADDRESSING == STD_ON)
       case CANTP_ADDRESS_FORMAT_NORMALFIXED:
         lSduMetadata[0] = pMetadataInfo->SduDataPtr[1];
         lSduMetadata[1] = pMetadataInfo->SduDataPtr[0];
 
-        for (i = 0; i < pTpTxState->SduMetadataLength; i++)
+        for(i = 0; i < pTpTxState->SduMetadataLength; i++)
         {
           if(pTpTxState->SduMetadata[i] != lSduMetadata[i])
           {
@@ -706,15 +706,15 @@ CANTP_LOCAL_INLINE FUNC(boolean, CANTP_CODE) CanTp_Util_TxSduMetadataFromFcPduMa
         }
 
         break;
-# endif
+#endif
 
-# if(CANTP_TX_HAS_MIXED29_ADDRESSING == STD_ON)
+#if(CANTP_TX_HAS_MIXED29_ADDRESSING == STD_ON)
       case CANTP_ADDRESS_FORMAT_MIXED29:
         lSduMetadata[0] = pMetadataInfo->SduDataPtr[1];
         lSduMetadata[1] = pMetadataInfo->SduDataPtr[0];
         lSduMetadata[2] = pPayloadInfo->SduDataPtr[0];
 
-        for (i = 0; i < pTpTxState->SduMetadataLength; i++)
+        for(i = 0; i < pTpTxState->SduMetadataLength; i++)
         {
           if(pTpTxState->SduMetadata[i] != lSduMetadata[i])
           {
@@ -723,7 +723,7 @@ CANTP_LOCAL_INLINE FUNC(boolean, CANTP_CODE) CanTp_Util_TxSduMetadataFromFcPduMa
           }
         }
         break;
-# endif
+#endif
 
       default:
         break;
@@ -732,17 +732,17 @@ CANTP_LOCAL_INLINE FUNC(boolean, CANTP_CODE) CanTp_Util_TxSduMetadataFromFcPduMa
   return result;
 }
 
-CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_Util_RxExtractSduMetadataInfo(CanTp_RxStatePtrType pTpRxState,
-  P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPayloadInfo,
-  P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pMetadataInfo){
+CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_Util_RxExtractSduMetadataInfo(CanTp_RxStatePtrType pTpRxState
+   ,  P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPayloadInfo
+   ,  P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pMetadataInfo){
   CANTP_DUMMY_STATEMENT(pPayloadInfo);
 
   if(CanTp_RxCfg_IsGenericConnection(pTpRxState->RxHdl)) {
-    CanTp_Util_RxAssembleSduMetadata(CanTp_RxCfg_GetAddressingFormat(pTpRxState->RxHdl), pPayloadInfo, pMetadataInfo,
-      pTpRxState->SduMetadata, &pTpRxState->SduMetadataLength);
+    CanTp_Util_RxAssembleSduMetadata(CanTp_RxCfg_GetAddressingFormat(pTpRxState->RxHdl), pPayloadInfo, pMetadataInfo
+   ,     pTpRxState->SduMetadata, &pTpRxState->SduMetadataLength);
   }
 
-# if(CANTP_MAX_PDU_METADATA_LENGTH != 0)
+#if(CANTP_MAX_PDU_METADATA_LENGTH != 0)
   if(pMetadataInfo->SduLength == CANTP_MAX_PDU_METADATA_LENGTH){
     pTpRxState->FcPduMetadata[0] = pMetadataInfo->SduDataPtr[1];
     pTpRxState->FcPduMetadata[1] = pMetadataInfo->SduDataPtr[0];
@@ -751,30 +751,30 @@ CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_Util_RxExtractSduMetadataInfo(Ca
   else{
     pTpRxState->FcPduMetadataLength = 0;
   }
-# endif
+#endif
 }
 
-CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_Util_TxExtractSduMetadataInfo(CanTp_TxStatePtrType pTpTxState,
-                                                                              P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) CanTpTxInfoPtr){
+CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_Util_TxExtractSduMetadataInfo(CanTp_TxStatePtrType pTpTxState
+   ,                                                                             P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) CanTpTxInfoPtr){
   if(CanTp_TxCfg_GetSduMetadataLength(pTpTxState->TxHdl) != 0u){
     pTpTxState->SduMetadataLength = CanTp_TxCfg_GetSduMetadataLength(pTpTxState->TxHdl);
     CanTp_Util_MemCpy(pTpTxState->SduMetadata, CanTpTxInfoPtr->SduDataPtr, pTpTxState->SduMetadataLength);
 
-# if(CANTP_MAX_PDU_METADATA_LENGTH != 0)
+#if(CANTP_MAX_PDU_METADATA_LENGTH != 0)
     switch(CanTp_TxCfg_GetAddressingFormat(pTpTxState->TxHdl)){
-#  if((CANTP_TX_HAS_EXTENDED_ADDRESSING == STD_ON) || (CANTP_TX_HAS_MIXED11_ADDRESSING == STD_ON))
+#if((CANTP_TX_HAS_EXTENDED_ADDRESSING == STD_ON) || (CANTP_TX_HAS_MIXED11_ADDRESSING == STD_ON))
       case CANTP_ADDRESS_FORMAT_EXTENDED:
       case CANTP_ADDRESS_FORMAT_MIXED11:
         pTpTxState->DataPduMetadataLength = 0;
         break;
-#  endif
+#endif
 
-#  if(CANTP_TX_HAS_NORMALFIXED_ADDRESSING)
+#if(CANTP_TX_HAS_NORMALFIXED_ADDRESSING)
       case CANTP_ADDRESS_FORMAT_NORMALFIXED:
-#  endif
-#  if(CANTP_TX_HAS_MIXED29_ADDRESSING)
+#endif
+#if(CANTP_TX_HAS_MIXED29_ADDRESSING)
       case CANTP_ADDRESS_FORMAT_MIXED29:
-#  endif
+#endif
         pTpTxState->DataPduMetadata[0] = pTpTxState->SduMetadata[0];
         pTpTxState->DataPduMetadata[1] = pTpTxState->SduMetadata[1];
         pTpTxState->DataPduMetadataLength = 2;
@@ -783,7 +783,7 @@ CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_Util_TxExtractSduMetadataInfo(Ca
       default:
         break;
     }
-# endif
+#endif
   }
 }
 #endif
@@ -794,9 +794,9 @@ CANTP_LOCAL_INLINE FUNC(uint8, CANTP_CODE) CanTp_Util_RxGetFCInPayloadAddressInf
   uint8 result;
 
   if((CanTp_RxCfg_IsGenericConnection(pTpRxState->RxHdl))
-# if(CANTP_RX_HAS_EXTENDED_ADDRESSING)
+#if(CANTP_RX_HAS_EXTENDED_ADDRESSING)
       && (CanTp_RxCfg_GetAddressingFormat(pTpRxState->RxHdl) != CANTP_ADDRESS_FORMAT_EXTENDED)
-# endif
+#endif
      ){
     result = pTpRxState->SduMetadata[pTpRxState->SduMetadataLength - 1u];
   }
@@ -850,8 +850,8 @@ CANTP_LOCAL_INLINE FUNC(uint8, CANTP_CODE) CanTp_TxGetStminTimerFromStminValue(u
 }
 #endif
 
-CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_CanIfRxIndicationSF(CanTp_RxStatePtrType pTpRxState,
-                                                                    P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPdu){
+CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_CanIfRxIndicationSF(CanTp_RxStatePtrType pTpRxState
+   ,                                                                   P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPdu){
   uint8                   lAddressingOffset;
   uint8                   lPayloadOffset;
   uint8                   lMinPayloadLength;
@@ -892,9 +892,9 @@ CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_CanIfRxIndicationSF(CanTp_RxStat
     pTpRxState->FrameType  = CANTP_FRAME_SF;
     pTpRxState->DataLength = lReceivedDataLength;
     pTpRxState->PayloadLength = (uint8)pTpRxState->DataLength;
-    CanTp_Util_MemCpy((P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA))(&pTpRxState->Payload[0]),
-                      (P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA))(&pPdu->SduDataPtr[lPayloadOffset]),
-                      (pTpRxState->PayloadLength) );
+    CanTp_Util_MemCpy((P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA))(&pTpRxState->Payload[0])
+   ,                     (P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA))(&pPdu->SduDataPtr[lPayloadOffset])
+   ,                     (pTpRxState->PayloadLength) );
 
     CanTp_ApplRxSFIndication(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl), pPdu)
 
@@ -906,18 +906,18 @@ CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_CanIfRxIndicationSF(CanTp_RxStat
       lPduInfo.SduDataPtr = pTpRxState->SduMetadata;
       lPduInfo.SduLength  = pTpRxState->SduMetadataLength;
 
-      pTpRxState->BufferState = CanTp_PduRStartOfReception(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl),
-                                                           &lPduInfo,
-                                                           pTpRxState->DataLength,
-                                                           &(pTpRxState->ProvidedBufferSize));
+      pTpRxState->BufferState = CanTp_PduRStartOfReception(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl)
+   ,                                                          &lPduInfo
+   ,                                                          pTpRxState->DataLength
+   ,                                                          &(pTpRxState->ProvidedBufferSize));
     }
     else
 #endif
     {
-      pTpRxState->BufferState = CanTp_PduRStartOfReception(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl),
-                                                           (PduInfoType*)NULL_PTR,
-                                                           pTpRxState->DataLength,
-                                                           &(pTpRxState->ProvidedBufferSize));
+      pTpRxState->BufferState = CanTp_PduRStartOfReception(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl)
+   ,                                                          (PduInfoType*)NULL_PTR
+   ,                                                          pTpRxState->DataLength
+   ,                                                          &(pTpRxState->ProvidedBufferSize));
     }
 
     switch(pTpRxState->BufferState){
@@ -951,8 +951,8 @@ CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_CanIfRxIndicationSF(CanTp_RxStat
   }
 }
 
-CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_CanIfRxIndicationFF(CanTp_RxStatePtrType pTpRxState,
-                                                                    P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPdu){
+CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_CanIfRxIndicationFF(CanTp_RxStatePtrType pTpRxState
+   ,                                                                   P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPdu){
 #if(CANTP_RX_OPTIMIZATION != CANTP_OPT_ZERO_SDU)
 
   uint8                   lAddressingOffset;
@@ -963,46 +963,46 @@ CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_CanIfRxIndicationFF(CanTp_RxStat
 
   lAddressingOffset = CanTp_RxGetAdrOffset(pTpRxState->RxHdl);
 
-# if(CANTP_RX_HAS_TATYPE_FUNCTIONAL == STD_ON)
+#if(CANTP_RX_HAS_TATYPE_FUNCTIONAL == STD_ON)
   if(CANTP_TATYPE_FUNCTIONAL == CanTp_RxCfg_GetTAType(pTpRxState->RxHdl)){
     CanTp_RxInit(pTpRxState, CANTP_NOTIFY_NORESULT, CANTP_E_INVALID_TATYPE, CANTP_RESET_ALL);
   }
 
   else
-# endif
+#endif
   {
-    lReceivedDataLength = CanTp_Util_Make16Bit( (uint8)(pPdu->SduDataPtr[lAddressingOffset] & CANTP_MASK_FF_LENGTH),
-                                                (uint8)(pPdu->SduDataPtr[lAddressingOffset + 1u]) );
+    lReceivedDataLength = CanTp_Util_Make16Bit( (uint8)(pPdu->SduDataPtr[lAddressingOffset] & CANTP_MASK_FF_LENGTH)
+   ,                                               (uint8)(pPdu->SduDataPtr[lAddressingOffset + 1u]) );
 
-# if(CANTP_SUPPORT_LONG_FF == STD_ON)
+#if(CANTP_SUPPORT_LONG_FF == STD_ON)
 
     if(lReceivedDataLength == 0u){
-#  if(CANTP_SIZEOF_PDULENGTHTYPE < 4)
+#if(CANTP_SIZEOF_PDULENGTHTYPE < 4)
 
       if((pPdu->SduDataPtr[lAddressingOffset + 2u] == 0u) &&
           (pPdu->SduDataPtr[lAddressingOffset + 3u] == 0u))
       {
-        lReceivedDataLength = (PduLengthType)CanTp_Util_Make16Bit((uint8)(pPdu->SduDataPtr[lAddressingOffset + 4u]),
-                                                                  (uint8)(pPdu->SduDataPtr[lAddressingOffset + 5u]));
+        lReceivedDataLength = (PduLengthType)CanTp_Util_Make16Bit((uint8)(pPdu->SduDataPtr[lAddressingOffset + 4u])
+   ,                                                                 (uint8)(pPdu->SduDataPtr[lAddressingOffset + 5u]));
       }
       else
       {
         lReceivedDataLength = 0;
       }
-#  else
+#else
 
-      lReceivedDataLength = (PduLengthType)CanTp_Util_Make32Bit((uint8)(pPdu->SduDataPtr[lAddressingOffset + 2u]),
-                                                                (uint8)(pPdu->SduDataPtr[lAddressingOffset + 3u]),
-                                                                (uint8)(pPdu->SduDataPtr[lAddressingOffset + 4u]),
-                                                                (uint8)(pPdu->SduDataPtr[lAddressingOffset + 5u]));
-#  endif
+      lReceivedDataLength = (PduLengthType)CanTp_Util_Make32Bit((uint8)(pPdu->SduDataPtr[lAddressingOffset + 2u])
+   ,                                                               (uint8)(pPdu->SduDataPtr[lAddressingOffset + 3u])
+   ,                                                               (uint8)(pPdu->SduDataPtr[lAddressingOffset + 4u])
+   ,                                                               (uint8)(pPdu->SduDataPtr[lAddressingOffset + 5u]));
+#endif
 
       lDataLengthLowerLimit = CANTP_FF_DL_12BIT;
       lMaxPayloadLen        = CanTp_RxCfg_GetMaxPayloadLFF(pTpRxState->RxHdl);
       lPayloadOffset        = (uint8) (lAddressingOffset + CANTP_PCI_LENGTH_LFF);
     }
     else
-# endif
+#endif
     {
       lDataLengthLowerLimit = (uint16)(CanTp_RxCfg_GetMaxSFDataLength(pTpRxState->RxHdl, pPdu->SduLength));
       lMaxPayloadLen        = CanTp_RxCfg_GetMaxPayloadFF(pTpRxState->RxHdl);
@@ -1025,9 +1025,9 @@ CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_CanIfRxIndicationFF(CanTp_RxStat
 
       pTpRxState->PayloadLength = (uint8)(pPdu->SduLength - lPayloadOffset);
       pTpRxState->InitalDLC     = (uint8)pPdu->SduLength;
-      CanTp_Util_MemCpy((P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA)) (&pTpRxState->Payload[0]),
-                        (P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA)) (&pPdu->SduDataPtr[lPayloadOffset]),
-                        (pTpRxState->PayloadLength) );
+      CanTp_Util_MemCpy((P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA)) (&pTpRxState->Payload[0])
+   ,                       (P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA)) (&pPdu->SduDataPtr[lPayloadOffset])
+   ,                       (pTpRxState->PayloadLength) );
 
       CanTp_ApplRxFFIndication(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl), pPdu)
 
@@ -1040,18 +1040,18 @@ CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_CanIfRxIndicationFF(CanTp_RxStat
         lPduInfo.SduDataPtr = pTpRxState->SduMetadata;
         lPduInfo.SduLength  = pTpRxState->SduMetadataLength;
 
-        pTpRxState->BufferState = CanTp_PduRStartOfReception(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl),
-                                                             &lPduInfo,
-                                                             pTpRxState->DataLength,
-                                                             &(pTpRxState->ProvidedBufferSize));
+        pTpRxState->BufferState = CanTp_PduRStartOfReception(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl)
+   ,                                                            &lPduInfo
+   ,                                                            pTpRxState->DataLength
+   ,                                                            &(pTpRxState->ProvidedBufferSize));
       }
     else
 #endif
       {
-        pTpRxState->BufferState = CanTp_PduRStartOfReception(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl),
-                                                             (PduInfoType*)NULL_PTR,
-                                                             pTpRxState->DataLength,
-                                                             &(pTpRxState->ProvidedBufferSize));
+        pTpRxState->BufferState = CanTp_PduRStartOfReception(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl)
+   ,                                                            (PduInfoType*)NULL_PTR
+   ,                                                            pTpRxState->DataLength
+   ,                                                            &(pTpRxState->ProvidedBufferSize));
       }
 
       switch(pTpRxState->BufferState)
@@ -1061,14 +1061,14 @@ CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_CanIfRxIndicationFF(CanTp_RxStat
           pTpRxState->Timer         = CanTp_RxCfg_GetNBr(pTpRxState->RxHdl);
           pTpRxState->ChannelState  = CANTP_RXSTATE_WAIT_BUFFER_FF;
 
-# if(CANTP_ONLY_NOTIFY_INFORMED_APPL == STD_ON)
+#if(CANTP_ONLY_NOTIFY_INFORMED_APPL == STD_ON)
 
           pTpRxState->ApplState     = (uint8)CANTP_APPL_INFORMED;
-# endif
-# if(CANTP_CONSTANT_BS == STD_ON)
+#endif
+#if(CANTP_CONSTANT_BS == STD_ON)
 
           CanTp_Data_CalcBS(pTpRxState->RxHdl) = 0;
-# endif
+#endif
           CanTp_RxGetBuffer_ISR(pTpRxState)
           break;
 
@@ -1076,10 +1076,10 @@ CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_CanIfRxIndicationFF(CanTp_RxStat
 
           pTpRxState->Timer         = CanTp_RxCfg_GetNAr(pTpRxState->RxHdl);
           pTpRxState->ChannelState  = CANTP_RXSTATE_TRANSMIT_FC_WT;
-# if(CANTP_ONLY_NOTIFY_INFORMED_APPL == STD_ON)
+#if(CANTP_ONLY_NOTIFY_INFORMED_APPL == STD_ON)
 
           pTpRxState->ApplState     = (uint8)CANTP_APPL_INFORMED;
-# endif
+#endif
           CanTp_RxTransmitFrame_ISR(pTpRxState)
           break;
 
@@ -1114,8 +1114,8 @@ CANTP_DUMMY_STATEMENT(pPdu);
 #endif
 }
 
-CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_CanIfRxIndicationCF(CanTp_RxStatePtrType pTpRxState,
-                                                                    P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPdu){
+CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_CanIfRxIndicationCF(CanTp_RxStatePtrType pTpRxState
+   ,                                                                   P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPdu){
 #if(CANTP_RX_OPTIMIZATION != CANTP_OPT_ZERO_SDU)
 
   uint8                   lAddressingOffset;
@@ -1125,13 +1125,13 @@ CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_CanIfRxIndicationCF(CanTp_RxStat
   lAddressingOffset = CanTp_RxGetAdrOffset(pTpRxState->RxHdl);
 
   if(pTpRxState->ChannelState == CANTP_RXSTATE_WAIT_TXCONFFC_CTS){
-# if(CANTP_TRANSMIT_QUEUE == STD_ON)
+#if(CANTP_TRANSMIT_QUEUE == STD_ON)
     CanTp_TxQueueCancel(pTpRxState->RxHdl, CANTP_DIR_RX);
-# else
+#else
     CanTp_Data_TxSemaphore( CanTp_RxCfg_GetTxFcConfPduId(pTpRxState->RxHdl) ).Handle    = CANTP_INVALID_HDL;
     CanTp_Data_TxSemaphore( CanTp_RxCfg_GetTxFcConfPduId(pTpRxState->RxHdl) ).Direction = CANTP_DIR_NONE;
     CanTp_CanIfCancelTransmit(CANTP_DIR_RX, pTpRxState->RxHdl, CanTp_RxCfg_GetLoLayerTxFcPduId(pTpRxState->RxHdl));
-# endif
+#endif
     CanTp_CanIfTxConfirmationFC(pTpRxState);
   }
 
@@ -1164,22 +1164,22 @@ CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_CanIfRxIndicationCF(CanTp_RxStat
     }
 
     else if(lSNinFrame != (uint8)(pTpRxState->ExpectedSN)){
-# if(CANTP_IGNORE_CF_WITH_WRONG_SN != STD_ON)
+#if(CANTP_IGNORE_CF_WITH_WRONG_SN != STD_ON)
       CanTp_RxInit(pTpRxState, CANTP_NOTIFY_WRONG_SN, CANTP_E_RX_INVALID_SN, CANTP_RESET_ALL);
-# endif
+#endif
     }
     else{
       pTpRxState->ExpectedSN = (uint8)((pTpRxState->ExpectedSN + 1u) & CANTP_PCI_SN_MASK);
       CanTp_ApplRxCFIndication(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl), pPdu)
 
-      CanTp_Util_MemCpy((P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA)) (&pTpRxState->Payload[0]),
-                        (P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA)) (&pPdu->SduDataPtr[lPayloadOffset]),
-                        (pTpRxState->PayloadLength) );
+      CanTp_Util_MemCpy((P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA)) (&pTpRxState->Payload[0])
+   ,                       (P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA)) (&pPdu->SduDataPtr[lPayloadOffset])
+   ,                       (pTpRxState->PayloadLength) );
 
-# if(CANTP_SINGLE_RX_BUFFER_OPTIMIZED == STD_ON)
+#if(CANTP_SINGLE_RX_BUFFER_OPTIMIZED == STD_ON)
 
       pTpRxState->BufferState = CANTP_BUFREQ_OK;
-# else
+#else
       if(pTpRxState->ProvidedBufferSize >= pTpRxState->PayloadLength)
       {
         pTpRxState->BufferState = CANTP_BUFREQ_OK;
@@ -1188,7 +1188,7 @@ CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_CanIfRxIndicationCF(CanTp_RxStat
       {
         pTpRxState->BufferState = CANTP_BUFREQ_E_BUSY;
       }
-# endif
+#endif
 
       pTpRxState->Timer        = CanTp_RxCfg_GetNCr(pTpRxState->RxHdl);
       pTpRxState->ChannelState = CANTP_RXSTATE_WAIT_BUFFER_CF;
@@ -1202,16 +1202,16 @@ CANTP_DUMMY_STATEMENT(pPdu);
 #endif
 }
 
-CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_CanIfRxIndicationFC(CanTp_TxStatePtrType pTpTxState,
-                                                                    P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPdu){
+CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_CanIfRxIndicationFC(CanTp_TxStatePtrType pTpTxState
+   ,                                                                   P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPdu){
   uint8 lAddressingOffset = CanTp_TxGetAdrOffset(pTpTxState->TxHdl);
 
   if(  (pTpTxState->ChannelState == CANTP_TXSTATE_WAIT_TXCONF_FF ) ||
        ((pTpTxState->ChannelState == CANTP_TXSTATE_WAIT_TXCONF_CF) && (pTpTxState->BlocksizeCounter == 1u)) ){
     pTpTxState->FCLength = CANTP_PCI_LENGTH_FC + lAddressingOffset;
-    CanTp_Util_MemCpy((P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA)) (pTpTxState->FCData),
-                      (P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA)) (pPdu->SduDataPtr),
-                      (pTpTxState->FCLength) );
+    CanTp_Util_MemCpy((P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA)) (pTpTxState->FCData)
+   ,                     (P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA)) (pPdu->SduDataPtr)
+   ,                     (pTpTxState->FCLength) );
 
   }
   else{
@@ -1239,10 +1239,10 @@ CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_CanIfRxIndicationFC(CanTp_TxStat
               if( ((lTempSTmin > CANTP_STMIN_MILLISEC_MAX) && (lTempSTmin < CANTP_STMIN_MICROSEC_MIN)) ||
                     (lTempSTmin > CANTP_STMIN_MICROSEC_MAX) )
               {
-# if(CANTP_REJECT_FC_WITH_RES_STMIN == STD_ON)
+#if(CANTP_REJECT_FC_WITH_RES_STMIN == STD_ON)
 
                 CanTp_TxInit(pTpTxState, CANTP_NOTIFY_NOT_OK, CANTP_E_TX_RES_STMIN);
-# endif
+#endif
                 break;
               }
 #endif
@@ -1293,10 +1293,10 @@ CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_CanIfRxIndicationFC(CanTp_TxStat
   }
 }
 
-CANTP_LOCAL_INLINE FUNC(Std_ReturnType, CANTP_CODE) CanTp_TxStartConnection(PduIdType TxSduSnv,
-                                                                            PduIdType TxHdl,
-                                                                            PduLengthType SduLength,
-                                                                            P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) CanTpTxInfoPtr){
+CANTP_LOCAL_INLINE FUNC(Std_ReturnType, CANTP_CODE) CanTp_TxStartConnection(PduIdType TxSduSnv
+   ,                                                                           PduIdType TxHdl
+   ,                                                                           PduLengthType SduLength
+   ,                                                                           P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) CanTpTxInfoPtr){
   CanTp_TxStatePtrType pTpTxState;
   Std_ReturnType       lReturnValue;
 
@@ -1351,11 +1351,11 @@ CANTP_LOCAL_INLINE FUNC(PduLengthType, CANTP_CODE) CanTp_RxGetBytesPerBlock(CanT
 
   lBytesPerBlock = (PduLengthType)CanTp_RxCfg_GetMaxPayloadCF(pTpRxState->RxHdl);
 
-# if(CANTP_CONSTANT_BS == STD_ON)
+#if(CANTP_CONSTANT_BS == STD_ON)
   if(pTpRxState->FrameType != CANTP_FRAME_FF){
     lBytesPerBlock = (PduLengthType)(lBytesPerBlock * CanTp_Data_CalcBS(pTpRxState->RxHdl));
   }
-# endif
+#endif
 
   if(lBytesPerBlock > (pTpRxState->DataLength - pTpRxState->DataIndex)){
     lBytesPerBlock = pTpRxState->DataLength - pTpRxState->DataIndex;
@@ -1371,9 +1371,9 @@ CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_RxGetBufferSF(CanTp_RxStatePtrTy
   if((pTpRxState->BufferState == CANTP_BUFREQ_OK) && (pTpRxState->ProvidedBufferSize >= pTpRxState->PayloadLength)){
     lPduInfo.SduLength  = pTpRxState->PayloadLength;
     lPduInfo.SduDataPtr = &pTpRxState->Payload[0];
-    pTpRxState->BufferState = CanTp_PduRCopyRxData(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl),
-                                                   &lPduInfo,
-                                                   &pTpRxState->ProvidedBufferSize);
+    pTpRxState->BufferState = CanTp_PduRCopyRxData(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl)
+   ,                                                  &lPduInfo
+   ,                                                  &pTpRxState->ProvidedBufferSize);
 
     if(pTpRxState->BufferState == CANTP_BUFREQ_OK){
       CanTp_RxInit(pTpRxState, CANTP_NOTIFY_OK, CANTP_E_NO_ERROR, CANTP_RESET_ALL);
@@ -1411,9 +1411,9 @@ CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_RxGetBufferFF(CanTp_RxStatePtrTy
   {
     lPduInfo.SduLength  = pTpRxState->PayloadLength;
     lPduInfo.SduDataPtr = &pTpRxState->Payload[0];
-    pTpRxState->BufferState = CanTp_PduRCopyRxData(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl),
-                                                   &lPduInfo,
-                                                   &pTpRxState->ProvidedBufferSize);
+    pTpRxState->BufferState = CanTp_PduRCopyRxData(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl)
+   ,                                                  &lPduInfo
+   ,                                                  &pTpRxState->ProvidedBufferSize);
   }
   else{
 #if(CANTP_FAULT_TOLERANT_RXBUFFER == STD_ON)
@@ -1483,18 +1483,18 @@ CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_RxGetBufferCF(CanTp_RxStatePtrTy
 
   lPduInfo.SduLength  = pTpRxState->PayloadLength;
   lPduInfo.SduDataPtr = &(pTpRxState->Payload[0]);
-  pTpRxState->BufferState = CanTp_PduRCopyRxData(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl),
-                                                 &lPduInfo,
-                                                 &pTpRxState->ProvidedBufferSize);
+  pTpRxState->BufferState = CanTp_PduRCopyRxData(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl)
+   ,                                                &lPduInfo
+   ,                                                &pTpRxState->ProvidedBufferSize);
 #else
 
   if(pTpRxState->BufferState == CANTP_BUFREQ_OK){
     if(pTpRxState->ProvidedBufferSize >= pTpRxState->PayloadLength){
       lPduInfo.SduLength  = pTpRxState->PayloadLength;
       lPduInfo.SduDataPtr = &pTpRxState->Payload[0];
-      pTpRxState->BufferState = CanTp_PduRCopyRxData(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl),
-                                                     &lPduInfo,
-                                                     &pTpRxState->ProvidedBufferSize);
+      pTpRxState->BufferState = CanTp_PduRCopyRxData(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl)
+   ,                                                    &lPduInfo
+   ,                                                    &pTpRxState->ProvidedBufferSize);
     }
     else{
       pTpRxState->BufferState = CANTP_BUFREQ_E_NOT_OK;
@@ -1538,9 +1538,9 @@ CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_RxGetBufferCF(CanTp_RxStatePtrTy
             else
             {
               lPduInfo.SduLength = 0;
-              pTpRxState->BufferState = (CanTp_BufferStateType)CanTp_PduRCopyRxData(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl),
-                                                                                    &lPduInfo,
-                                                                                    &pTpRxState->ProvidedBufferSize);
+              pTpRxState->BufferState = (CanTp_BufferStateType)CanTp_PduRCopyRxData(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl)
+   ,                                                                                   &lPduInfo
+   ,                                                                                   &pTpRxState->ProvidedBufferSize);
 
               pTpRxState->ChannelState = CANTP_RXSTATE_TRANSMIT_FC_WT;
               if(pTpRxState->BufferState == CANTP_BUFREQ_OK)
@@ -1611,9 +1611,9 @@ CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_RxGetBufferFCWait(CanTp_RxStateP
     {
       lPduInfo.SduLength  = pTpRxState->PayloadLength;
       lPduInfo.SduDataPtr = &pTpRxState->Payload[0];
-      pTpRxState->BufferState = CanTp_PduRCopyRxData(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl),
-                                                     &lPduInfo,
-                                                     &pTpRxState->ProvidedBufferSize);
+      pTpRxState->BufferState = CanTp_PduRCopyRxData(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl)
+   ,                                                    &lPduInfo
+   ,                                                    &pTpRxState->ProvidedBufferSize);
     }
     else{
       pTpRxState->BufferState = CANTP_BUFREQ_E_BUSY;
@@ -1678,11 +1678,11 @@ CANTP_LOCAL_INLINE FUNC(PduIdType, CANTP_CODE) CanTp_Cfg_GetSduHdlByRxPduOnly (P
   if( (FrameType == CANTP_PCI_TYPE_FC) && (CanTp_CanIfRxPduHasTxSduRef(RxPduId)) ){
     lSduHdl = (PduIdType)CanTp_GetTxSduCfgInd(CanTp_GetTxSduCfgIndStartIdxOfRxPduMap(RxPduId));
   }
-# if(CANTP_RXSDUCFGIND == STD_ON)
+#if(CANTP_RXSDUCFGIND == STD_ON)
   else if( (FrameType != CANTP_PCI_TYPE_FC) && (CanTp_CanIfRxPduHasRxSduRef(RxPduId)) ){
     lSduHdl = (PduIdType)CanTp_GetRxSduCfgInd(CanTp_GetRxSduCfgIndStartIdxOfRxPduMap(RxPduId));
   }
-# endif
+#endif
   else{
   }
 
@@ -1702,7 +1702,7 @@ CANTP_LOCAL_INLINE FUNC(PduIdType, CANTP_CODE) CanTp_Cfg_GetSduHdlByRxPduAddress
 #if(CANTP_TXSDUCFGIND == STD_ON)
     CanTp_TxSduCfgIndIterType lTxduIndirectionIndex;
 
-    for (lTxduIndirectionIndex = (PduIdType)CanTp_GetTxSduCfgIndStartIdxOfRxPduMap(RxPduId);
+    for(lTxduIndirectionIndex = (PduIdType)CanTp_GetTxSduCfgIndStartIdxOfRxPduMap(RxPduId);
          lTxduIndirectionIndex < (PduIdType)CanTp_GetTxSduCfgIndEndIdxOfRxPduMap(RxPduId);
          lTxduIndirectionIndex++){
       lSduCurrentHdl = (PduIdType)CanTp_GetTxSduCfgInd(lTxduIndirectionIndex);
@@ -1719,7 +1719,7 @@ CANTP_LOCAL_INLINE FUNC(PduIdType, CANTP_CODE) CanTp_Cfg_GetSduHdlByRxPduAddress
 #if(CANTP_RXSDUCFGIND == STD_ON)
     CanTp_RxSduCfgIndIterType lRxduIndirectionIndex;
 
-    for (lRxduIndirectionIndex = (PduIdType)CanTp_GetRxSduCfgIndStartIdxOfRxPduMap(RxPduId);
+    for(lRxduIndirectionIndex = (PduIdType)CanTp_GetRxSduCfgIndStartIdxOfRxPduMap(RxPduId);
          lRxduIndirectionIndex < (PduIdType)CanTp_GetRxSduCfgIndEndIdxOfRxPduMap(RxPduId);
          lRxduIndirectionIndex++){
       lSduCurrentHdl = (PduIdType)CanTp_GetRxSduCfgInd(lRxduIndirectionIndex);
@@ -1756,9 +1756,9 @@ CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_RxInitState(CanTp_RxStatePtrType
 #endif
 #if(CANTP_GENERIC_CONNECTIONS == STD_ON)
   pTpRxState->SduMetadataLength    = 0;
-# if(CANTP_MAX_PDU_METADATA_LENGTH != 0)
+#if(CANTP_MAX_PDU_METADATA_LENGTH != 0)
   pTpRxState->FcPduMetadataLength  = 0;
-# endif
+#endif
 #endif
 
 }
@@ -1785,22 +1785,22 @@ CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_TxInitState(CanTp_TxStatePtrType
   pTpTxState->FCLength              = 0;
 #if(CANTP_GENERIC_CONNECTIONS == STD_ON)
   pTpTxState->SduMetadataLength     = 0;
-# if(CANTP_MAX_PDU_METADATA_LENGTH != 0)
+#if(CANTP_MAX_PDU_METADATA_LENGTH != 0)
   pTpTxState->DataPduMetadataLength = 0;
-# endif
+#endif
 #endif
 }
 
-CANTP_LOCAL_INLINE FUNC(CanTp_RxStatePtrType, CANTP_CODE) CanTp_RxGetFreeChannelPtr(PduIdType RxHdl,
-                                                                                    P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPayloadInfo,
-                                                                                    P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pMetadataInfo){
+CANTP_LOCAL_INLINE FUNC(CanTp_RxStatePtrType, CANTP_CODE) CanTp_RxGetFreeChannelPtr(PduIdType RxHdl
+   ,                                                                                   P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPayloadInfo
+   ,                                                                                   P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pMetadataInfo){
   CanTp_RxStatePtrType pTpRxState = (CanTp_RxStatePtrType)NULL_PTR;
 
   if(CanTp_RxChannelIsIdle(RxHdl)){
 #if(CANTP_DYN_CHANNEL_ASSIGNMENT == STD_ON)
     PduIdType            lChannelHdl;
 
-    for (lChannelHdl = 0; lChannelHdl < CanTp_Cfg_GetNumRxChannels(); lChannelHdl++){
+    for(lChannelHdl = 0; lChannelHdl < CanTp_Cfg_GetNumRxChannels(); lChannelHdl++){
       if(CanTp_Data_RxState(lChannelHdl).ChannelState == CANTP_RXSTATE_IDLE)
       {
         CanTp_NumRxChannelsAvail--;
@@ -1840,15 +1840,15 @@ CANTP_LOCAL_INLINE FUNC(CanTp_RxStatePtrType, CANTP_CODE) CanTp_RxGetActiveChann
   return pTpRxState;
 }
 
-CANTP_LOCAL_INLINE FUNC(CanTp_TxStatePtrType, CANTP_CODE) CanTp_TxGetFreeChannelPtr(PduIdType TxHdl,
-  P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) CanTpTxInfoPtr){
+CANTP_LOCAL_INLINE FUNC(CanTp_TxStatePtrType, CANTP_CODE) CanTp_TxGetFreeChannelPtr(PduIdType TxHdl
+   ,  P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) CanTpTxInfoPtr){
   CanTp_TxStatePtrType pTpTxState = (CanTp_TxStatePtrType)NULL_PTR;
 
   if(CanTp_TxChannelIsIdle(TxHdl)){
 #if(CANTP_DYN_CHANNEL_ASSIGNMENT == STD_ON)
     PduIdType            lChannelHdl;
 
-    for (lChannelHdl = 0; lChannelHdl < CanTp_Cfg_GetNumTxChannels(); lChannelHdl++){
+    for(lChannelHdl = 0; lChannelHdl < CanTp_Cfg_GetNumTxChannels(); lChannelHdl++){
       if(CanTp_Data_TxState(lChannelHdl).ChannelState == CANTP_TXSTATE_IDLE)
       {
         CanTp_NumTxChannelsAvail--;
@@ -1888,10 +1888,10 @@ CANTP_LOCAL_INLINE FUNC(CanTp_TxStatePtrType, CANTP_CODE) CanTp_TxGetActiveChann
 
 #if(CANTP_TRANSMITFCTOFLOLAYERFCTS == STD_ON)
 
-CANTP_LOCAL_INLINE FUNC(Std_ReturnType, CANTP_CODE) CanTp_LoLayerTransmit(CanTp_DirectionType Direction,
-                                                                          PduIdType SduHdl,
-                                                                          PduIdType LoLayerTxPduId,
-                                                                          P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pTpData){
+CANTP_LOCAL_INLINE FUNC(Std_ReturnType, CANTP_CODE) CanTp_LoLayerTransmit(CanTp_DirectionType Direction
+   ,                                                                         PduIdType SduHdl
+   ,                                                                         PduIdType LoLayerTxPduId
+   ,                                                                         P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pTpData){
   uint8 lLoLayerIdx;
   Std_ReturnType lResult;
 
@@ -1926,10 +1926,10 @@ CANTP_LOCAL_INLINE FUNC(void, CANTP_CODE) CanTp_LoLayerCancelTransmit(CanTp_Dire
 }
 #endif
 
-CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_CanIfRxIndication(PduIdType  SduHdl,
-                                                           uint8      FrameType,
-                                                           P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPayloadInfo,
-                                                           P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pMetadataInfo){
+CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_CanIfRxIndication(PduIdType  SduHdl
+   ,                                                          uint8      FrameType
+   ,                                                          P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pPayloadInfo
+   ,                                                          P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pMetadataInfo){
   CANTP_DUMMY_STATEMENT(SduHdl);
   CANTP_DUMMY_STATEMENT(pMetadataInfo);
 
@@ -2050,9 +2050,9 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_CanIfTxConfirmation(CanTp_TxStatePtrTyp
 
     case CANTP_TXSTATE_WAIT_TXCONF_FF:
 
-# if(CANTP_USE_ONLY_FIRST_FC == STD_ON)
+#if(CANTP_USE_ONLY_FIRST_FC == STD_ON)
       pTpTxState->FirstFCReceived = FALSE;
-# endif
+#endif
       pTpTxState->Timer        = CanTp_TxCfg_GetNBs(pTpTxState->TxHdl);
       pTpTxState->ChannelState = CANTP_TXSTATE_WAIT_FC;
       break;
@@ -2076,7 +2076,7 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_CanIfTxConfirmation(CanTp_TxStatePtrTyp
         {
           pTpTxState->Timer        = CanTp_TxCfg_GetNCs(pTpTxState->TxHdl);
           {
-# if(CANTP_STMIN_BY_APPL == STD_ON)
+#if(CANTP_STMIN_BY_APPL == STD_ON)
             boolean lSeparationTimeByAppl;
 
             pTpTxState->ChannelState = CANTP_TXSTATE_WAIT_STMIN_APPL;
@@ -2087,7 +2087,7 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_CanIfTxConfirmation(CanTp_TxStatePtrTyp
 
             if( (lSeparationTimeByAppl    == FALSE) &&
                  (pTpTxState->ChannelState == CANTP_TXSTATE_WAIT_STMIN_APPL) )
-# endif
+#endif
             {
               if(pTpTxState->STmin == 0u)
               {
@@ -2161,28 +2161,28 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_CanIfTxConfirmationFC(CanTp_RxStatePtrT
 }
 #endif
 
-CANTP_LOCAL FUNC(CanTp_TxResultType, CANTP_CODE) CanTp_CanIfTransmitFrame(P2CONST(CanTp_PduTxInfoType, AUTOMATIC, CANTP_APPL_DATA) pPduTxData,
-                                                                          P2VAR(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pTpData){
+CANTP_LOCAL FUNC(CanTp_TxResultType, CANTP_CODE) CanTp_CanIfTransmitFrame(P2CONST(CanTp_PduTxInfoType, AUTOMATIC, CANTP_APPL_DATA) pPduTxData
+   ,                                                                         P2VAR(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) pTpData){
   CanTp_TxResultType  lCanIfResult;
 
 #if(CANTP_PADDING_SUPPORT_REQUIRED == STD_ON)
 
-# if(CANTP_HAVE_PADDING_BYTE == STD_ON)
+#if(CANTP_HAVE_PADDING_BYTE == STD_ON)
   while( pTpData->SduLength < (PduLengthType)pPduTxData->PaddingLength ){
     pTpData->SduDataPtr[pTpData->SduLength] = CANTP_PADDING_PATTERN;
     pTpData->SduLength++;
   }
-# else
+#else
 
   pTpData->SduLength = (PduLengthType)pPduTxData->PaddingLength;
-# endif
+#endif
 #endif
 
 #if(CANTP_MAX_PDU_METADATA_LENGTH != 0)
   if(pPduTxData->PduMetadataLength != 0u){
-    CanTp_Util_MemCpy(&pTpData->SduDataPtr[pTpData->SduLength],
-                      pPduTxData->PduMetadata,
-                      pPduTxData->PduMetadataLength);
+    CanTp_Util_MemCpy(&pTpData->SduDataPtr[pTpData->SduLength]
+   ,                     pPduTxData->PduMetadata
+   ,                     pPduTxData->PduMetadataLength);
     pTpData->SduLength += pPduTxData->PduMetadataLength;
   }
 #endif
@@ -2209,8 +2209,8 @@ CANTP_LOCAL FUNC(CanTp_TxResultType, CANTP_CODE) CanTp_CanIfTransmitFrame(P2CONS
       CanTp_TxQueueEntryWritePos(pPduTxData->TxConfPduId).SduHandle = pPduTxData->SduHdl;
       CanTp_TxQueueEntryWritePos(pPduTxData->TxConfPduId).SduDirection = pPduTxData->SduDirection;
       CanTp_TxQueueEntryWritePos(pPduTxData->TxConfPduId).SduLength = pTpData->SduLength;
-      CanTp_Util_MemCpy((P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA))(CanTp_TxQueueEntryWritePos(pPduTxData->TxConfPduId).SduData),
-                        (P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA))(pTpData->SduDataPtr), (uint16)pTpData->SduLength);
+      CanTp_Util_MemCpy((P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA))(CanTp_TxQueueEntryWritePos(pPduTxData->TxConfPduId).SduData)
+   ,                       (P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA))(pTpData->SduDataPtr), (uint16)pTpData->SduLength);
 
       CanTp_Data_TxQueue(pPduTxData->TxConfPduId).WritePos = (uint8)((CanTp_Data_TxQueue(pPduTxData->TxConfPduId).WritePos + 1u) & CANTP_TX_QUEUE_MASK);
       lCanIfResult = CANTP_TX_OK;
@@ -2228,28 +2228,28 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_RxInit(CanTp_RxStatePtrType pTpRxState,
   uint8  lIndicationPduR = 0;
   PduIdType lRxHdl = pTpRxState->RxHdl;
 
-# if(CANTP_GENERIC_CONNECTIONS == STD_ON)
+#if(CANTP_GENERIC_CONNECTIONS == STD_ON)
   uint8 lSduMetadataLength   = pTpRxState->SduMetadataLength;
-#  if(CANTP_MAX_PDU_METADATA_LENGTH != 0)
+#if(CANTP_MAX_PDU_METADATA_LENGTH != 0)
   uint8 lFcPduMetadataLength = pTpRxState->FcPduMetadataLength;
-#  endif
-# endif
+#endif
+#endif
 
   if((pTpRxState->ChannelState & CANTP_RXSTATE_WAIT_TXCONFFC_ANY) == CANTP_RXSTATE_WAIT_TXCONFFC_ANY){
-# if(CANTP_TRANSMIT_QUEUE == STD_ON)
+#if(CANTP_TRANSMIT_QUEUE == STD_ON)
     CanTp_TxQueueCancel(lRxHdl, CANTP_DIR_RX);
-# else
+#else
 
     CanTp_Data_TxSemaphore( CanTp_RxCfg_GetTxFcConfPduId(lRxHdl) ).Handle    = CANTP_INVALID_HDL;
     CanTp_Data_TxSemaphore( CanTp_RxCfg_GetTxFcConfPduId(lRxHdl) ).Direction = CANTP_DIR_NONE;
     CanTp_CanIfCancelTransmit(CANTP_DIR_RX, lRxHdl, CanTp_RxCfg_GetLoLayerTxFcPduId(lRxHdl));
-# endif
+#endif
   }
 
   if(NotifyCode != CANTP_NOTIFY_NORESULT){
-# if(CANTP_ONLY_NOTIFY_INFORMED_APPL == STD_ON)
+#if(CANTP_ONLY_NOTIFY_INFORMED_APPL == STD_ON)
     if(pTpRxState->ApplState == CANTP_APPL_INFORMED)
-# endif
+#endif
     {
       lIndicationPduR = 1;
     }
@@ -2260,20 +2260,20 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_RxInit(CanTp_RxStatePtrType pTpRxState,
   if(ResetRequest == CANTP_RESET_BUT_KEEP_MAPPING){
     pTpRxState->RxHdl = lRxHdl;
 
-# if(CANTP_GENERIC_CONNECTIONS == STD_ON)
+#if(CANTP_GENERIC_CONNECTIONS == STD_ON)
     pTpRxState->SduMetadataLength   = lSduMetadataLength;
-#  if(CANTP_MAX_PDU_METADATA_LENGTH != 0)
+#if(CANTP_MAX_PDU_METADATA_LENGTH != 0)
     pTpRxState->FcPduMetadataLength = lFcPduMetadataLength;
-#  endif
-# endif
+#endif
+#endif
 
   }
-# if(CANTP_DYN_CHANNEL_ASSIGNMENT == STD_ON)
+#if(CANTP_DYN_CHANNEL_ASSIGNMENT == STD_ON)
   else{
     CanTp_Data_RxChannelMap(lRxHdl) = CANTP_INVALID_HDL;
     CanTp_NumRxChannelsAvail++;
   }
-# endif
+#endif
 
   if(lIndicationPduR != 0u){
     CanTp_PduRRxIndication(CanTp_RxCfg_GetPduRRxSduId(lRxHdl), NotifyCode);
@@ -2298,22 +2298,22 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_TxInit(CanTp_TxStatePtrType pTpTxState,
   CANTP_DUMMY_STATEMENT(lTxHdl);
 
   if((pTpTxState->ChannelState & CANTP_TXSTATE_WAIT_TXCONF_ANY) == CANTP_TXSTATE_WAIT_TXCONF_ANY){
-# if(CANTP_TRANSMIT_QUEUE == STD_ON)
+#if(CANTP_TRANSMIT_QUEUE == STD_ON)
 
     CanTp_TxQueueCancel(lTxHdl, CANTP_DIR_TX);
-# else
+#else
 
     CanTp_Data_TxSemaphore( CanTp_TxCfg_GetTxConfPduId(lTxHdl) ).Handle = CANTP_INVALID_HDL;
     CanTp_Data_TxSemaphore( CanTp_TxCfg_GetTxConfPduId(lTxHdl) ).Direction = CANTP_DIR_NONE;
     CanTp_CanIfCancelTransmit(CANTP_DIR_TX, lTxHdl, CanTp_TxCfg_GetLoLayerTxPduId(lTxHdl));
-# endif
+#endif
   }
 
   CanTp_TxInitState(pTpTxState);
-# if(CANTP_DYN_CHANNEL_ASSIGNMENT == STD_ON)
+#if(CANTP_DYN_CHANNEL_ASSIGNMENT == STD_ON)
   CanTp_Data_TxChannelMap(lTxHdl) = CANTP_INVALID_HDL;
   CanTp_NumTxChannelsAvail++;
-# endif
+#endif
 
   CanTp_PduRTxConfirmation(CanTp_TxCfg_GetPduRTxSduId(lTxHdl), NotifyCode);
 
@@ -2332,7 +2332,7 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_ResetChannels(void){
   {
     PduIdType  lSduHdl;
 
-    for (lSduHdl = 0; lSduHdl < CanTp_Cfg_GetNumRxHdls(); lSduHdl++){
+    for(lSduHdl = 0; lSduHdl < CanTp_Cfg_GetNumRxHdls(); lSduHdl++){
 #if(CANTP_DYN_CHANNEL_ASSIGNMENT == STD_ON)
 
       CanTp_Data_RxChannelMap(lSduHdl) = CANTP_INVALID_HDL;
@@ -2347,7 +2347,7 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_ResetChannels(void){
 
 #if(CANTP_DYN_CHANNEL_ASSIGNMENT == STD_ON)
 
-    for (lSduHdl = 0; lSduHdl < CanTp_Cfg_GetNumTxHdls(); lSduHdl++){
+    for(lSduHdl = 0; lSduHdl < CanTp_Cfg_GetNumTxHdls(); lSduHdl++){
       CanTp_Data_TxChannelMap(lSduHdl) = CANTP_INVALID_HDL;
     }
 #endif
@@ -2356,11 +2356,11 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_ResetChannels(void){
   {
     PduIdType  lChannelHdl;
 
-    for (lChannelHdl = 0; lChannelHdl < CanTp_Cfg_GetNumRxChannels(); lChannelHdl++){
+    for(lChannelHdl = 0; lChannelHdl < CanTp_Cfg_GetNumRxChannels(); lChannelHdl++){
       CanTp_RxInitState(&CanTp_Data_RxState(lChannelHdl));
     }
 
-    for (lChannelHdl = 0; lChannelHdl < CanTp_Cfg_GetNumTxChannels(); lChannelHdl++){
+    for(lChannelHdl = 0; lChannelHdl < CanTp_Cfg_GetNumTxChannels(); lChannelHdl++){
       CanTp_TxInitState(&CanTp_Data_TxState(lChannelHdl));
     }
   }
@@ -2374,7 +2374,7 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_ResetChannels(void){
   {
     PduIdType  lTxConfHdl;
 
-    for (lTxConfHdl = 0; lTxConfHdl < CanTp_Cfg_GetNumTxConfPdus(); lTxConfHdl++){
+    for(lTxConfHdl = 0; lTxConfHdl < CanTp_Cfg_GetNumTxConfPdus(); lTxConfHdl++){
       CanTp_Data_TxSemaphore(lTxConfHdl).Handle     = CANTP_INVALID_HDL;
       CanTp_Data_TxSemaphore(lTxConfHdl).Direction  = CANTP_DIR_NONE;
 
@@ -2385,7 +2385,7 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_ResetChannels(void){
         CanTp_Data_TxQueue(lTxConfHdl).ReadPos = 0;
         CanTp_Data_TxQueue(lTxConfHdl).WritePos = 0;
 
-        for (lQueueCntr = 0; lQueueCntr < CANTP_TX_QUEUE_SIZE; lQueueCntr++)
+        for(lQueueCntr = 0; lQueueCntr < CANTP_TX_QUEUE_SIZE; lQueueCntr++)
         {
           CanTp_Data_TxQueue(lTxConfHdl).Entries[lQueueCntr].SduHandle = CANTP_INVALID_HDL;
         }
@@ -2400,9 +2400,9 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_RxGetBuffer(CanTp_RxStatePtrType pTpRxS
 
   if(pTpRxState->BufferState == CANTP_BUFREQ_E_BUSY){
     lPduInfo.SduLength = 0;
-    pTpRxState->BufferState = (CanTp_BufferStateType)CanTp_PduRCopyRxData(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl),
-                                                                           &lPduInfo,
-                                                                           &pTpRxState->ProvidedBufferSize);
+    pTpRxState->BufferState = (CanTp_BufferStateType)CanTp_PduRCopyRxData(CanTp_RxCfg_GetPduRRxSduId(pTpRxState->RxHdl)
+   ,                                                                          &lPduInfo
+   ,                                                                          &pTpRxState->ProvidedBufferSize);
   }
 
   switch(pTpRxState->ChannelState){
@@ -2449,13 +2449,13 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_TxGetBuffer(CanTp_TxStatePtrType pTpTxS
 
     case CANTP_TXSTATE_WAIT_BUFFER_FF:
 
-# if(CANTP_SUPPORT_LONG_FF == STD_ON)
+#if(CANTP_SUPPORT_LONG_FF == STD_ON)
       if(pTpTxState->DataLength > CANTP_FF_DL_12BIT)
       {
         pTpTxState->PayloadLength = CanTp_TxCfg_GetMaxPayloadLFF(pTpTxState->TxHdl);
       }
       else
-# endif
+#endif
       {
         pTpTxState->PayloadLength = CanTp_TxCfg_GetMaxPayloadFF(pTpTxState->TxHdl);
       }
@@ -2481,10 +2481,10 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_TxGetBuffer(CanTp_TxStatePtrType pTpTxS
 
   lPduInfo.SduDataPtr = &pTpTxState->Payload[0];
   lPduInfo.SduLength  =  pTpTxState->PayloadLength;
-  pTpTxState->BufferState = CanTp_PduRCopyTxData(CanTp_TxCfg_GetPduRTxSduId(pTpTxState->TxHdl),
-                                                  &lPduInfo,
-                                                  (RetryInfoType*)NULL_PTR,
-                                                  &lRemainingBufferSize);
+  pTpTxState->BufferState = CanTp_PduRCopyTxData(CanTp_TxCfg_GetPduRTxSduId(pTpTxState->TxHdl)
+   ,                                                 &lPduInfo
+   ,                                                 (RetryInfoType*)NULL_PTR
+   ,                                                 &lRemainingBufferSize);
 
   if(pTpTxState->BufferState == CANTP_BUFREQ_OK){
     pTpTxState->Timer        = CanTp_TxCfg_GetNAs(pTpTxState->TxHdl);
@@ -2516,15 +2516,15 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_RxTransmitFrame(CanTp_RxStatePtrType pT
   lFCFrameData.SduDataPtr = lFCBuffer;
   lFCFrameData.SduLength  = 0;
 
-# if(CANTP_RX_CHECK_ADDRESSING_FORMAT == STD_ON)
+#if(CANTP_RX_CHECK_ADDRESSING_FORMAT == STD_ON)
   if(CanTp_RxGetAdrOffset(pTpRxState->RxHdl) != 0u)
-# endif
-# if((CANTP_RX_HAS_EXTENDED_ADDRESSING == STD_ON) || (CANTP_RX_HAS_MIXED11_ADDRESSING == STD_ON) || (CANTP_RX_HAS_MIXED29_ADDRESSING == STD_ON))
+#endif
+#if((CANTP_RX_HAS_EXTENDED_ADDRESSING == STD_ON) || (CANTP_RX_HAS_MIXED11_ADDRESSING == STD_ON) || (CANTP_RX_HAS_MIXED29_ADDRESSING == STD_ON))
   {
     lFCFrameData.SduDataPtr[0] = CanTp_Util_RxGetFCInPayloadAddressInfo(pTpRxState);
     lFCFrameData.SduLength++;
   }
-# endif
+#endif
 
   lBlockSizeValue = CanTp_RxGetCurrentBS(pTpRxState->RxHdl);
 
@@ -2533,13 +2533,13 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_RxTransmitFrame(CanTp_RxStatePtrType pT
 
       if(lBlockSizeValue != 0u)
       {
-# if(CANTP_CONSTANT_BS == STD_ON)
+#if(CANTP_CONSTANT_BS == STD_ON)
         if(CanTp_Data_CalcBS(pTpRxState->RxHdl) != 0u)
         {
           lBlockSizeValue = CanTp_Data_CalcBS(pTpRxState->RxHdl);
         }
         else
-# endif
+#endif
         {
           uint16 lBytesPerBlock;
 
@@ -2552,10 +2552,10 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_RxTransmitFrame(CanTp_RxStatePtrType pT
             CanTp_DetAssert(lBlockSizeValue >= 1u, CANTP_SID_RXTRANSMITFRAME, CANTP_E_INVALID_RX_BUFFER)
           }
 
-# if(CANTP_CONSTANT_BS == STD_ON)
+#if(CANTP_CONSTANT_BS == STD_ON)
 
           CanTp_Data_CalcBS(pTpRxState->RxHdl) = lBlockSizeValue;
-# endif
+#endif
         }
       }
 
@@ -2600,14 +2600,14 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_RxTransmitFrame(CanTp_RxStatePtrType pT
     lPduTxInfo.TxPduId       = CanTp_RxCfg_GetLoLayerTxFcPduId(pTpRxState->RxHdl);
     lPduTxInfo.TxConfPduId   = CanTp_RxCfg_GetTxFcConfPduId(pTpRxState->RxHdl);
 
-# if(CANTP_PADDING_SUPPORT_REQUIRED == STD_ON)
+#if(CANTP_PADDING_SUPPORT_REQUIRED == STD_ON)
     lPduTxInfo.PaddingLength = CanTp_Util_GetPaddingLength((uint8)lFCFrameData.SduLength, CanTp_RxCfg_HasPaddingActivation(pTpRxState->RxHdl), CanTp_RxCfg_GetCanType(pTpRxState->RxHdl));
-# endif
+#endif
 
-# if(CANTP_MAX_PDU_METADATA_LENGTH != 0)
+#if(CANTP_MAX_PDU_METADATA_LENGTH != 0)
     lPduTxInfo.PduMetadata = pTpRxState->FcPduMetadata;
     lPduTxInfo.PduMetadataLength = pTpRxState->FcPduMetadataLength;
-# endif
+#endif
 
     lTxResult = CanTp_CanIfTransmitFrame(&lPduTxInfo, &lFCFrameData);
 
@@ -2673,19 +2673,19 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_TxTransmitFrame(CanTp_TxStatePtrType pT
       if(pTpTxState->DataLength > CANTP_FF_DL_12BIT)
       {
         lTxFrameData.SduDataPtr[lTxFrameData.SduLength + 1u] = 0;
-# if(CANTP_SIZEOF_PDULENGTHTYPE < 4)
+#if(CANTP_SIZEOF_PDULENGTHTYPE < 4)
 
         lTxFrameData.SduDataPtr[lTxFrameData.SduLength + 2u] = 0;
         lTxFrameData.SduDataPtr[lTxFrameData.SduLength + 3u] = 0;
         lTxFrameData.SduDataPtr[lTxFrameData.SduLength + 4u] = CanTp_Util_GetHiByte(pTpTxState->DataLength);
         lTxFrameData.SduDataPtr[lTxFrameData.SduLength + 5u] = CanTp_Util_GetLoByte(pTpTxState->DataLength);
-# else
+#else
 
         lTxFrameData.SduDataPtr[lTxFrameData.SduLength + 2u] = CanTp_Util_GetHiHiByte(pTpTxState->DataLength);
         lTxFrameData.SduDataPtr[lTxFrameData.SduLength + 3u] = CanTp_Util_GetHiLoByte(pTpTxState->DataLength);
         lTxFrameData.SduDataPtr[lTxFrameData.SduLength + 4u] = CanTp_Util_GetLoHiByte(pTpTxState->DataLength);
         lTxFrameData.SduDataPtr[lTxFrameData.SduLength + 5u] = CanTp_Util_GetLoLoByte(pTpTxState->DataLength);
-# endif
+#endif
         lTxFrameData.SduLength += CANTP_PCI_LENGTH_LFF;
       }
       else
@@ -2712,9 +2712,9 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_TxTransmitFrame(CanTp_TxStatePtrType pT
       return;
   }
 
-  CanTp_Util_MemCpy((P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA))(&lTxFrameData.SduDataPtr[lTxFrameData.SduLength]),
-                    (P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA))(pTpTxState->Payload),
-                    pTpTxState->PayloadLength);
+  CanTp_Util_MemCpy((P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA))(&lTxFrameData.SduDataPtr[lTxFrameData.SduLength])
+   ,                   (P2VAR(uint8, AUTOMATIC, CANTP_APPL_DATA))(pTpTxState->Payload)
+   ,                   pTpTxState->PayloadLength);
   lTxFrameData.SduLength += pTpTxState->PayloadLength;
 
   lPduTxInfo.SduDirection  = CANTP_DIR_TX;
@@ -2723,9 +2723,9 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_TxTransmitFrame(CanTp_TxStatePtrType pT
   lPduTxInfo.TxConfPduId   = CanTp_TxCfg_GetTxConfPduId(pTpTxState->TxHdl);
 
 #if(CANTP_PADDING_SUPPORT_REQUIRED == STD_ON)
-  lPduTxInfo.PaddingLength = CanTp_Util_GetPaddingLength((uint8)lTxFrameData.SduLength,
-                                                         CanTp_TxCfg_HasPaddingActivation(pTpTxState->TxHdl),
-                                                         CanTp_TxCfg_GetCanType(pTpTxState->TxHdl));
+  lPduTxInfo.PaddingLength = CanTp_Util_GetPaddingLength((uint8)lTxFrameData.SduLength
+   ,                                                        CanTp_TxCfg_HasPaddingActivation(pTpTxState->TxHdl)
+   ,                                                        CanTp_TxCfg_GetCanType(pTpTxState->TxHdl));
 #endif
 
 #if(CANTP_MAX_PDU_METADATA_LENGTH != 0)
@@ -2757,11 +2757,11 @@ CANTP_LOCAL FUNC(Std_ReturnType, CANTP_CODE) CanTp_RxCheckChannelMode(PduIdType 
   if(!CanTp_RxSdu2TxSduRefIsAvailable(RxHdl)){
     lResult = E_OK;
   }
-# if(CANTP_RX_CHECK_HALF_DUPLEX == STD_ON)
+#if(CANTP_RX_CHECK_HALF_DUPLEX == STD_ON)
   else if(CANTP_MODE_FULL_DUPLEX == CanTp_RxCfg_GetChannelMode(RxHdl)){
     lResult = E_OK;
   }
-# endif
+#endif
   else if(CanTp_TxChannelIsIdle(CanTp_RxCfg_GetTxSduHdl(RxHdl))){
     lResult = E_OK;
   }
@@ -2781,11 +2781,11 @@ CANTP_LOCAL FUNC(Std_ReturnType, CANTP_CODE) CanTp_TxCheckChannelMode(PduIdType 
   if(!CanTp_TxSdu2RxSduRefIsAvailable(TxHdl)){
     lResult = E_OK;
   }
-# if(CANTP_TX_CHECK_HALF_DUPLEX == STD_ON)
+#if(CANTP_TX_CHECK_HALF_DUPLEX == STD_ON)
   else if(CANTP_MODE_FULL_DUPLEX == CanTp_TxCfg_GetChannelMode(TxHdl)){
     lResult = E_OK;
   }
-# endif
+#endif
   else if(CanTp_RxChannelIsIdle(CanTp_TxCfg_GetRxSduHdl(TxHdl)) == TRUE){
     lResult = E_OK;
   }
@@ -2861,7 +2861,7 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_TxQueueCancel(PduIdType SduHdl, CanTp_D
     CanTp_Data_TxSemaphore(lTxConfPduId).Handle    = CANTP_INVALID_HDL;
     CanTp_Data_TxSemaphore(lTxConfPduId).Direction = CANTP_DIR_NONE;
 
-# if(CANTP_LOLAYER_TC == STD_ON)
+#if(CANTP_LOLAYER_TC == STD_ON)
     if(Direction == CANTP_DIR_TX){
       CanTp_CanIfCancelTransmit(CANTP_DIR_TX, SduHdl, CanTp_TxCfg_GetLoLayerTxPduId(SduHdl));
     }
@@ -2876,7 +2876,7 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_TxQueueCancel(PduIdType SduHdl, CanTp_D
   }
   else{
     lQueueCntr = CanTp_Data_TxQueue(lTxConfPduId).ReadPos;
-    while (lQueueCntr != CanTp_Data_TxQueue(lTxConfPduId).WritePos){
+    while(lQueueCntr != CanTp_Data_TxQueue(lTxConfPduId).WritePos){
       if((CanTp_Data_TxQueue(lTxConfPduId).Entries[lQueueCntr].SduHandle == SduHdl) &&
           (CanTp_Data_TxQueue(lTxConfPduId).Entries[lQueueCntr].SduDirection == Direction))
       {
@@ -2890,7 +2890,7 @@ CANTP_LOCAL FUNC(void, CANTP_CODE) CanTp_TxQueueCancel(PduIdType SduHdl, CanTp_D
 }
 #endif
 
-FUNC(void, CANTP_CODE) CanTp_Init(P2CONST(CanTp_ConfigType, AUTOMATIC, CANTP_INIT_DATA) CfgPtr){
+FUNC(void, CANTP_CODE) SwcServiceCanTp_InitFunction(P2CONST(CanTp_ConfigType, AUTOMATIC, CANTP_INIT_DATA) CfgPtr){
 #if(CANTP_USE_INIT_POINTER == STD_ON)
   uint8  lErrorId = CANTP_E_NO_ERROR;
 
@@ -2900,7 +2900,7 @@ FUNC(void, CANTP_CODE) CanTp_Init(P2CONST(CanTp_ConfigType, AUTOMATIC, CANTP_INI
     lErrorId = CANTP_E_PARAM_POINTER;
     CanTp_EcuMReportBswError(ECUM_BSWERROR_NULLPTR)
   }
-# if(CANTP_CONFIGURATION_VARIANT == CANTP_CONFIGURATION_VARIANT_POSTBUILD_LOADABLE)
+#if(CANTP_CONFIGURATION_VARIANT == CANTP_CONFIGURATION_VARIANT_POSTBUILD_LOADABLE)
 
   else if(CANTP_GENERATOR_COMPATIBILITY_VERSION != CfgPtr->CompatibilityVersionOfPBConfig){
     CanTp_EcuMReportBswError(ECUM_BSWERROR_COMPATIBILITYVERSION)
@@ -2909,7 +2909,7 @@ FUNC(void, CANTP_CODE) CanTp_Init(P2CONST(CanTp_ConfigType, AUTOMATIC, CANTP_INI
   else if(CANTP_FINAL_MAGIC_NUMBER != CfgPtr->FinalMagicNumberOfPBConfig){
     CanTp_EcuMReportBswError(ECUM_BSWERROR_MAGICNUMBER)
   }
-# endif
+#endif
   else
 #endif
   {
@@ -2921,24 +2921,24 @@ FUNC(void, CANTP_CODE) CanTp_Init(P2CONST(CanTp_ConfigType, AUTOMATIC, CANTP_INI
   }
 
 #if(CANTP_USE_INIT_POINTER == STD_ON)
-# if(CANTP_DEV_ERROR_REPORT == STD_ON)
+#if(CANTP_DEV_ERROR_REPORT == STD_ON)
   if(lErrorId != CANTP_E_NO_ERROR){
     CanTp_DetReportError(CANTP_SID_INIT, lErrorId)
   }
-# else
+#else
 
   CANTP_DUMMY_STATEMENT(lErrorId);
-# endif
+#endif
 #else
   CANTP_DUMMY_STATEMENT(CfgPtr);
 #endif
 }
 
-FUNC(void, CANTP_CODE) CanTp_InitMemory(void){
+FUNC(void, CANTP_CODE) SwcServiceCanTp_InitFunctionMemory(void){
   CanTp_Data_InitState() = CANTP_STATUS_NOT_INITIALIZED;
 }
 
-FUNC(void, CANTP_CODE) CanTp_Shutdown(void){
+FUNC(void, CANTP_CODE) SwcServiceCanTp_Shutdown(void){
   uint8  lErrorId = CANTP_E_NO_ERROR;
 
   if(CanTp_Data_InitState() != CANTP_STATUS_INITIALIZED){
@@ -2960,16 +2960,16 @@ FUNC(void, CANTP_CODE) CanTp_Shutdown(void){
 
 #if(CANTP_VERSION_INFO_API == STD_ON)
 
-FUNC(void, CANTP_CODE) CanTp_GetVersionInfo(P2VAR(Std_VersionInfoType, AUTOMATIC, CANTP_APPL_DATA) versioninfo){
+FUNC(void, CANTP_CODE) SwcServiceCanTp_GetVersionInfo(P2VAR(Std_VersionInfoType, AUTOMATIC, CANTP_APPL_DATA) versioninfo){
   uint8  lErrorId = CANTP_E_NO_ERROR;
 
-# if(CANTP_DEV_ERROR_DETECT == STD_ON)
+#if(CANTP_DEV_ERROR_DETECT == STD_ON)
 
   if(versioninfo == NULL_PTR){
     lErrorId = CANTP_E_PARAM_POINTER;
   }
   else
-# endif
+#endif
   {
     versioninfo->vendorID         = CANTP_VENDOR_ID;
     versioninfo->moduleID         = CANTP_MODULE_ID;
@@ -2979,27 +2979,27 @@ FUNC(void, CANTP_CODE) CanTp_GetVersionInfo(P2VAR(Std_VersionInfoType, AUTOMATIC
     versioninfo->sw_patch_version = CANTP_SW_PATCH_VERSION;
   }
 
-# if(CANTP_DEV_ERROR_REPORT == STD_ON)
+#if(CANTP_DEV_ERROR_REPORT == STD_ON)
   if(lErrorId != CANTP_E_NO_ERROR){
     CanTp_DetReportError(CANTP_SID_GETVERSIONINFO, lErrorId)
   }
-# else
+#else
   CANTP_DUMMY_STATEMENT(lErrorId);
-# endif
+#endif
 }
 #endif
 
-FUNC(void, CANTP_CODE) CanTp_MainFunction(void){
-  CanTp_MainFunctionRx();
-  CanTp_MainFunctionTx();
+FUNC(void, CANTP_CODE) SwcServiceCanTp_MainFunction(void){
+  SwcServiceCanTp_MainFunctionRx();
+  SwcServiceCanTp_MainFunctionTx();
 }
 
-FUNC(void,  CANTP_CODE)   CanTp_MainFunctionRx(void){
+FUNC(void,  CANTP_CODE)   SwcServiceCanTp_MainFunctionRx(void){
   PduIdType            lRxChannelHdl;
   CanTp_RxStatePtrType pTpRxState;
 
   if(CanTp_Data_InitState() == CANTP_STATUS_INITIALIZED){
-    for (lRxChannelHdl = 0; lRxChannelHdl < CanTp_Cfg_GetNumRxChannels(); lRxChannelHdl++){
+    for(lRxChannelHdl = 0; lRxChannelHdl < CanTp_Cfg_GetNumRxChannels(); lRxChannelHdl++){
       pTpRxState = &CanTp_Data_RxState(lRxChannelHdl);
 
       if(pTpRxState->RxHdl != CANTP_INVALID_HDL)
@@ -3089,12 +3089,12 @@ FUNC(void,  CANTP_CODE)   CanTp_MainFunctionRx(void){
 
 }
 
-FUNC(void, CANTP_CODE) CanTp_MainFunctionTx(void){
+FUNC(void, CANTP_CODE) SwcServiceCanTp_MainFunctionTx(void){
   PduIdType            lTxChannelHdl;
   CanTp_TxStatePtrType pTpTxState;
 
   if(CanTp_Data_InitState() == CANTP_STATUS_INITIALIZED){
-    for (lTxChannelHdl = 0; lTxChannelHdl < CanTp_Cfg_GetNumTxChannels(); lTxChannelHdl++){
+    for(lTxChannelHdl = 0; lTxChannelHdl < CanTp_Cfg_GetNumTxChannels(); lTxChannelHdl++){
       pTpTxState = &CanTp_Data_TxState(lTxChannelHdl);
 
       if(pTpTxState->TxHdl != CANTP_INVALID_HDL)
@@ -3189,7 +3189,7 @@ FUNC(void, CANTP_CODE) CanTp_MainFunctionTx(void){
 
 }
 
-FUNC(Std_ReturnType, CANTP_CODE) CanTp_Transmit(PduIdType CanTpTxSduId, P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) CanTpTxInfoPtr){
+FUNC(Std_ReturnType, CANTP_CODE) SwcServiceCanTp_Transmit(PduIdType CanTpTxSduId, P2CONST(PduInfoType, AUTOMATIC, CANTP_APPL_DATA) CanTpTxInfoPtr){
   uint8           lErrorId     = CANTP_E_NO_ERROR;
   Std_ReturnType  lReturnValue = E_NOT_OK;
 
@@ -3205,18 +3205,18 @@ FUNC(Std_ReturnType, CANTP_CODE) CanTp_Transmit(PduIdType CanTpTxSduId, P2CONST(
   else if(CanTpTxInfoPtr == NULL_PTR){
     lErrorId = CANTP_E_PARAM_POINTER;
   }
-# if(CANTP_SUPPORT_LONG_FF != STD_ON)
+#if(CANTP_SUPPORT_LONG_FF != STD_ON)
 
   else if(CanTpTxInfoPtr->SduLength > CANTP_FF_DL_12BIT){
     lErrorId = CANTP_E_INVALID_TX_LENGTH;
   }
-# endif
-# if(CANTP_CONFIGURATION_VARIANT != CANTP_CONFIGURATION_VARIANT_PRECOMPILE)
+#endif
+#if(CANTP_CONFIGURATION_VARIANT != CANTP_CONFIGURATION_VARIANT_PRECOMPILE)
 
   else if(!CanTp_TxSduSnvIsAvailable(CanTpTxSduId)){
     lErrorId = CANTP_E_INVALID_TX_ID;
   }
-# endif
+#endif
 #endif
   else{
     CONST(PduIdType, AUTOMATIC) lTxSduHdl = CanTp_TxGetSduHdlBySduId(CanTpTxSduId);
@@ -3303,10 +3303,10 @@ FUNC(void, CANTP_CODE) CanTp_RxIndication(PduIdType RxPduId, P2CONST(PduInfoType
         break;
     }
 #else
-# if((CANTP_SUPPORT_STANDARD_ADDRESSING == STD_ON) || (CANTP_SUPPORT_NORMALFIXED_ADDRESSING == STD_ON))
+#if((CANTP_SUPPORT_STANDARD_ADDRESSING == STD_ON) || (CANTP_SUPPORT_NORMALFIXED_ADDRESSING == STD_ON))
     lReceivedFrameType = (uint8)(PduInfoPtr->SduDataPtr[0] & CANTP_PCI_TYPE_MASK);
     lSduHdl = CanTp_Cfg_GetSduHdlByRxPduOnly(RxPduId, lReceivedFrameType);
-# else
+#else
     lReceivedFrameType = (uint8)(PduInfoPtr->SduDataPtr[1] & CANTP_PCI_TYPE_MASK);
 #if(CANTP_GENERIC_CONNECTIONS == STD_ON)
     if(CanTp_Cfg_IsGenericConnectionByRxPdu(RxPduId)){
@@ -3317,16 +3317,16 @@ FUNC(void, CANTP_CODE) CanTp_RxIndication(PduIdType RxPduId, P2CONST(PduInfoType
     {
       lSduHdl = CanTp_Cfg_GetSduHdlByRxPduAddress(RxPduId, lReceivedFrameType, PduInfoPtr->SduDataPtr[0]);
     }
-# endif
+#endif
 #endif
 
 #if((CANTP_DCM_REQUEST_DETECT == STD_ON) && (CANTP_MIXED11_ADDRESSING == STD_ON))
-# if(CANTP_SUPPORT_MULTIPLE_ADDRESSING == STD_ON)
+#if(CANTP_SUPPORT_MULTIPLE_ADDRESSING == STD_ON)
     if((CanTp_Cfg_GetAddressingTypeByRxPdu(RxPduId) == CANTP_ADDRESS_FORMAT_MIXED11) &&
         ((lReceivedFrameType == CANTP_PCI_TYPE_SF) || (lReceivedFrameType == CANTP_PCI_TYPE_FF)))
-# else
+#else
     if((lReceivedFrameType == CANTP_PCI_TYPE_SF) || (lReceivedFrameType == CANTP_PCI_TYPE_FF))
-# endif
+#endif
     {
       CanTp_DcmForwardNAE(RxPduId, PduInfoPtr->SduDataPtr[0]);
     }
@@ -3482,12 +3482,12 @@ FUNC(Std_ReturnType, CANTP_CODE) CanTp_ChangeParameter(PduIdType id, TPParameter
   else if((parameter != TP_STMIN) && (parameter != TP_BS)){
     lErrorId = CANTP_E_PARAM_ID;
   }
-# if(CANTP_CONFIGURATION_VARIANT != CANTP_CONFIGURATION_VARIANT_PRECOMPILE)
+#if(CANTP_CONFIGURATION_VARIANT != CANTP_CONFIGURATION_VARIANT_PRECOMPILE)
 
   else if(!CanTp_RxSduSnvIsAvailable(id)){
     lErrorId = CANTP_E_INVALID_RX_ID;
   }
-# endif
+#endif
   else
 #endif
   {
@@ -3556,12 +3556,12 @@ FUNC(Std_ReturnType, CANTP_CODE) CanTp_ReadParameter(PduIdType id, TPParameterTy
   else if(value == NULL_PTR){
     lErrorId = CANTP_E_PARAM_POINTER;
   }
-# if(CANTP_CONFIGURATION_VARIANT != CANTP_CONFIGURATION_VARIANT_PRECOMPILE)
+#if(CANTP_CONFIGURATION_VARIANT != CANTP_CONFIGURATION_VARIANT_PRECOMPILE)
 
   else if(!CanTp_RxSduSnvIsAvailable(id)){
     lErrorId = CANTP_E_INVALID_RX_ID;
   }
-# endif
+#endif
   else
 #endif
   {
@@ -3581,9 +3581,9 @@ FUNC(Std_ReturnType, CANTP_CODE) CanTp_ReadParameter(PduIdType id, TPParameterTy
   if(lErrorId != CANTP_E_NO_ERROR){
     CanTp_DetReportError(CANTP_SID_READPARAMETER, lErrorId)
   }
-# else
+#else
   CANTP_DUMMY_STATEMENT(lErrorId);
-# endif
+#endif
 
   return lReturnValue;
 }
@@ -3591,27 +3591,27 @@ FUNC(Std_ReturnType, CANTP_CODE) CanTp_ReadParameter(PduIdType id, TPParameterTy
 
 #if(CANTP_TC == STD_ON)
 
-FUNC(Std_ReturnType, CANTP_CODE) CanTp_CancelTransmit(PduIdType CanTpTxSduId){
+FUNC(Std_ReturnType, CANTP_CODE) SwcServiceCanTp_CancelTransmit(PduIdType CanTpTxSduId){
   Std_ReturnType   lReturnValue = E_NOT_OK;
   uint8            lErrorId     = CANTP_E_NO_ERROR;
 
   CANTP_DUMMY_STATEMENT(CanTpTxSduId);
 
-# if(CANTP_DEV_ERROR_DETECT == STD_ON)
+#if(CANTP_DEV_ERROR_DETECT == STD_ON)
   if(CanTp_Data_InitState() != CANTP_STATUS_INITIALIZED){
     lErrorId = CANTP_E_UNINIT;
   }
   else if(CanTpTxSduId >= CanTp_Cfg_GetNumTxSduIds()){
     lErrorId = CANTP_E_INVALID_TX_ID;
   }
-#  if(CANTP_CONFIGURATION_VARIANT != CANTP_CONFIGURATION_VARIANT_PRECOMPILE)
+#if(CANTP_CONFIGURATION_VARIANT != CANTP_CONFIGURATION_VARIANT_PRECOMPILE)
 
   else if(!CanTp_TxSduSnvIsAvailable(CanTpTxSduId)){
     lErrorId = CANTP_E_INVALID_TX_ID;
   }
-#  endif
+#endif
   else
-# endif
+#endif
   {
     CanTp_TxStatePtrType pTpTxState;
 
@@ -3644,13 +3644,13 @@ FUNC(Std_ReturnType, CANTP_CODE) CanTp_CancelTransmit(PduIdType CanTpTxSduId){
 
   }
 
-# if(CANTP_DEV_ERROR_REPORT == STD_ON)
+#if(CANTP_DEV_ERROR_REPORT == STD_ON)
   if(lErrorId != CANTP_E_NO_ERROR){
     CanTp_DetReportError(CANTP_SID_CANCELTRANSMIT, lErrorId)
   }
-# else
+#else
   CANTP_DUMMY_STATEMENT(lErrorId);
-# endif
+#endif
 
   return lReturnValue;
 }
@@ -3658,27 +3658,27 @@ FUNC(Std_ReturnType, CANTP_CODE) CanTp_CancelTransmit(PduIdType CanTpTxSduId){
 
 #if(CANTP_RC == STD_ON)
 
-FUNC(Std_ReturnType, CANTP_CODE) CanTp_CancelReceive(PduIdType CanTpRxSduId){
+FUNC(Std_ReturnType, CANTP_CODE) SwcServiceCanTp_CancelReceive(PduIdType CanTpRxSduId){
   Std_ReturnType lReturnValue = E_NOT_OK;
   uint8          lErrorId     = CANTP_E_NO_ERROR;
 
   CANTP_DUMMY_STATEMENT(CanTpRxSduId);
 
-# if(CANTP_DEV_ERROR_DETECT == STD_ON)
+#if(CANTP_DEV_ERROR_DETECT == STD_ON)
   if(CanTp_Data_InitState() != CANTP_STATUS_INITIALIZED){
     lErrorId = CANTP_E_UNINIT;
   }
   else if(CanTpRxSduId >= CanTp_Cfg_GetNumRxSduIds()){
     lErrorId = CANTP_E_INVALID_RX_ID;
   }
-#  if(CANTP_CONFIGURATION_VARIANT != CANTP_CONFIGURATION_VARIANT_PRECOMPILE)
+#if(CANTP_CONFIGURATION_VARIANT != CANTP_CONFIGURATION_VARIANT_PRECOMPILE)
 
   else if(!CanTp_RxSduSnvIsAvailable(CanTpRxSduId)){
     lErrorId = CANTP_E_INVALID_RX_ID;
   }
-#  endif
+#endif
   else
-# endif
+#endif
   {
     CanTp_RxStatePtrType pTpRxState;
 
@@ -3706,13 +3706,13 @@ FUNC(Std_ReturnType, CANTP_CODE) CanTp_CancelReceive(PduIdType CanTpRxSduId){
     CanTp_LeaveCritical();
   }
 
-# if(CANTP_DEV_ERROR_REPORT == STD_ON)
+#if(CANTP_DEV_ERROR_REPORT == STD_ON)
   if(lErrorId != CANTP_E_NO_ERROR){
     CanTp_DetReportError(CANTP_SID_CANCELRECEIVE, lErrorId)
   }
-# else
+#else
   CANTP_DUMMY_STATEMENT(lErrorId);
-# endif
+#endif
 
   return lReturnValue;
 }
@@ -3725,21 +3725,21 @@ FUNC(void, CANTP_CODE) CanTp_StopSeparationTime(PduIdType CanTpTxSduId){
 
   CANTP_DUMMY_STATEMENT(CanTpTxSduId);
 
-# if(CANTP_DEV_ERROR_DETECT == STD_ON)
+#if(CANTP_DEV_ERROR_DETECT == STD_ON)
   if(CanTp_Data_InitState() != CANTP_STATUS_INITIALIZED){
     lErrorId = CANTP_E_UNINIT;
   }
   else if(CanTpTxSduId >= CanTp_Cfg_GetNumTxSduIds()){
     lErrorId = CANTP_E_INVALID_TX_ID;
   }
-#  if(CANTP_CONFIGURATION_VARIANT != CANTP_CONFIGURATION_VARIANT_PRECOMPILE)
+#if(CANTP_CONFIGURATION_VARIANT != CANTP_CONFIGURATION_VARIANT_PRECOMPILE)
 
   else if(!CanTp_TxSduSnvIsAvailable(CanTpTxSduId)){
     lErrorId = CANTP_E_INVALID_TX_ID;
   }
-#  endif
+#endif
   else
-# endif
+#endif
   {
     CanTp_TxStatePtrType pTpTxState;
 
@@ -3764,13 +3764,13 @@ FUNC(void, CANTP_CODE) CanTp_StopSeparationTime(PduIdType CanTpTxSduId){
     CanTp_LeaveCritical();
   }
 
-# if(CANTP_DEV_ERROR_REPORT == STD_ON)
+#if(CANTP_DEV_ERROR_REPORT == STD_ON)
   if(lErrorId != CANTP_E_NO_ERROR){
     CanTp_DetReportError(CANTP_SID_STOPSEPARATIONTIME, lErrorId)
   }
-# else
+#else
   CANTP_DUMMY_STATEMENT(lErrorId);
-# endif
+#endif
 
 }
 #endif

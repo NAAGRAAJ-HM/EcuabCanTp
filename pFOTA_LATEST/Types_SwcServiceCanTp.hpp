@@ -1,5 +1,3 @@
-
-
 #if !defined (CANTP_TYPES_H)
 #define CANTP_TYPES_H
 
@@ -9,30 +7,30 @@
 #if defined (MSR_PDUR_API_AR_VERSION)
 
 # undef  CANTP_PDUR_API_AR_VERSION
-# define CANTP_PDUR_API_AR_VERSION        MSR_PDUR_API_AR_VERSION
+#define CANTP_PDUR_API_AR_VERSION        MSR_PDUR_API_AR_VERSION
 #endif
 
 #if defined (CANTP_PDUR_API_AR_VERSION)
-# if   (CANTP_PDUR_API_AR_VERSION == 0x403)
-#  define CANTP_PDUR_API_403_ENABLED             STD_ON
-#  define CANTP_PDUR_API_412_ENABLED             STD_OFF
+#if   (CANTP_PDUR_API_AR_VERSION == 0x403)
+#define CANTP_PDUR_API_403_ENABLED             STD_ON
+#define CANTP_PDUR_API_412_ENABLED             STD_OFF
 # elif(CANTP_PDUR_API_AR_VERSION == 0x412)
-#  define CANTP_PDUR_API_403_ENABLED             STD_OFF
-#  define CANTP_PDUR_API_412_ENABLED             STD_ON
-# else
-#  error "Not supported PduR version! No PduR BSWMD file in your MSR project?"
-# endif
+#define CANTP_PDUR_API_403_ENABLED             STD_OFF
+#define CANTP_PDUR_API_412_ENABLED             STD_ON
+#else
+#error "Not supported PduR version! No PduR BSWMD file in your MSR project?"
+#endif
 #else
 # error "Missing CANTP_PDUR_API_AR_VERSION! Mixing new BSW with old generation tool?"
 #endif
 
 #if !defined (CANTP_TX_QUEUE_SIZE)
-# define CANTP_TX_QUEUE_SIZE                     4u
+#define CANTP_TX_QUEUE_SIZE                     4u
 #else
-# if((CANTP_TX_QUEUE_SIZE & (CANTP_TX_QUEUE_SIZE - 1)) != 0)
+#if((CANTP_TX_QUEUE_SIZE & (CANTP_TX_QUEUE_SIZE - 1)) != 0)
 
-#  error "CANTP_TX_QUEUE_SIZE must be a power of 2 (2, 4, 8, 16...)"
-# endif
+#error "CANTP_TX_QUEUE_SIZE must be a power of 2 (2, 4, 8, 16...)"
+#endif
 #endif
 
 typedef uint8                                    CanTp_FrameType;
@@ -42,7 +40,7 @@ typedef uint8                                    CanTp_FrameType;
 #define CANTP_FRAME_FC                           (0x03u)
 #define CANTP_FRAME_INVALID                      (0x04u)
 
-typedef uint8                                    CanTp_InitStatusType;
+typedef uint8                                    SwcServiceCanTp_InitFunctionStatusType;
 #define CANTP_STATUS_NOT_INITIALIZED             CANTP_OFF
 #define CANTP_STATUS_INITIALIZED                 CANTP_ON
 #define CANTP_STATUS_SHUTDOWN                    CANTP_STATUS_NOT_INITIALIZED
@@ -91,34 +89,34 @@ typedef uint8                                    CanTp_DirectionType;
 
 #if(CANTP_PDUR_API_403_ENABLED == STD_ON)
 typedef  NotifResultType                         CanTp_NotificationType;
-# define CANTP_NOTIFY_OK                         (NotifResultType)NTFRSLT_OK
-# define CANTP_NOTIFY_NOT_OK                     (NotifResultType)NTFRSLT_E_NOT_OK
-# define CANTP_NOTIFY_TIMEOUT_A                  (NotifResultType)NTFRSLT_E_TIMEOUT_A
-# define CANTP_NOTIFY_TIMEOUT_B                  (NotifResultType)NTFRSLT_E_TIMEOUT_BS
-# define CANTP_NOTIFY_TIMEOUT_C                  (NotifResultType)NTFRSLT_E_TIMEOUT_CR
-# define CANTP_NOTIFY_WRONG_SN                   (NotifResultType)NTFRSLT_E_WRONG_SN
-# define CANTP_NOTIFY_INVALID_FS                 (NotifResultType)NTFRSLT_E_INVALID_FS
-# define CANTP_NOTIFY_UNEXP_PDU                  (NotifResultType)NTFRSLT_E_UNEXP_PDU
-# define CANTP_NOTIFY_WFT_OVERRUN                (NotifResultType)NTFRSLT_E_WFT_OVRN
-# define CANTP_NOTIFY_NO_BUFFER                  (NotifResultType)NTFRSLT_E_NO_BUFFER
-# define CANTP_NOTIFY_CANCEL_OK                  (NotifResultType)NTFRSLT_E_CANCELATION_OK
-# define CANTP_NOTIFY_CANCEL_NOT_OK              (NotifResultType)NTFRSLT_E_CANCELATION_NOT_OK
-# define CANTP_NOTIFY_NORESULT                   (NotifResultType)(0x80u)
+#define CANTP_NOTIFY_OK                         (NotifResultType)NTFRSLT_OK
+#define CANTP_NOTIFY_NOT_OK                     (NotifResultType)NTFRSLT_E_NOT_OK
+#define CANTP_NOTIFY_TIMEOUT_A                  (NotifResultType)NTFRSLT_E_TIMEOUT_A
+#define CANTP_NOTIFY_TIMEOUT_B                  (NotifResultType)NTFRSLT_E_TIMEOUT_BS
+#define CANTP_NOTIFY_TIMEOUT_C                  (NotifResultType)NTFRSLT_E_TIMEOUT_CR
+#define CANTP_NOTIFY_WRONG_SN                   (NotifResultType)NTFRSLT_E_WRONG_SN
+#define CANTP_NOTIFY_INVALID_FS                 (NotifResultType)NTFRSLT_E_INVALID_FS
+#define CANTP_NOTIFY_UNEXP_PDU                  (NotifResultType)NTFRSLT_E_UNEXP_PDU
+#define CANTP_NOTIFY_WFT_OVERRUN                (NotifResultType)NTFRSLT_E_WFT_OVRN
+#define CANTP_NOTIFY_NO_BUFFER                  (NotifResultType)NTFRSLT_E_NO_BUFFER
+#define CANTP_NOTIFY_CANCEL_OK                  (NotifResultType)NTFRSLT_E_CANCELATION_OK
+#define CANTP_NOTIFY_CANCEL_NOT_OK              (NotifResultType)NTFRSLT_E_CANCELATION_NOT_OK
+#define CANTP_NOTIFY_NORESULT                   (NotifResultType)(0x80u)
 #else
 typedef  Std_ReturnType                          CanTp_NotificationType;
-# define CANTP_NOTIFY_OK                         (Std_ReturnType)E_OK
-# define CANTP_NOTIFY_NOT_OK                     (Std_ReturnType)E_NOT_OK
-# define CANTP_NOTIFY_TIMEOUT_A                  (Std_ReturnType)E_NOT_OK
-# define CANTP_NOTIFY_TIMEOUT_B                  (Std_ReturnType)E_NOT_OK
-# define CANTP_NOTIFY_TIMEOUT_C                  (Std_ReturnType)E_NOT_OK
-# define CANTP_NOTIFY_WRONG_SN                   (Std_ReturnType)E_NOT_OK
-# define CANTP_NOTIFY_INVALID_FS                 (Std_ReturnType)E_NOT_OK
-# define CANTP_NOTIFY_UNEXP_PDU                  (Std_ReturnType)E_NOT_OK
-# define CANTP_NOTIFY_WFT_OVERRUN                (Std_ReturnType)E_NOT_OK
-# define CANTP_NOTIFY_NO_BUFFER                  (Std_ReturnType)E_NOT_OK
-# define CANTP_NOTIFY_CANCEL_OK                  (Std_ReturnType)E_NOT_OK
-# define CANTP_NOTIFY_CANCEL_NOT_OK              (Std_ReturnType)E_NOT_OK
-# define CANTP_NOTIFY_NORESULT                   (Std_ReturnType)(0x80u)
+#define CANTP_NOTIFY_OK                         (Std_ReturnType)E_OK
+#define CANTP_NOTIFY_NOT_OK                     (Std_ReturnType)E_NOT_OK
+#define CANTP_NOTIFY_TIMEOUT_A                  (Std_ReturnType)E_NOT_OK
+#define CANTP_NOTIFY_TIMEOUT_B                  (Std_ReturnType)E_NOT_OK
+#define CANTP_NOTIFY_TIMEOUT_C                  (Std_ReturnType)E_NOT_OK
+#define CANTP_NOTIFY_WRONG_SN                   (Std_ReturnType)E_NOT_OK
+#define CANTP_NOTIFY_INVALID_FS                 (Std_ReturnType)E_NOT_OK
+#define CANTP_NOTIFY_UNEXP_PDU                  (Std_ReturnType)E_NOT_OK
+#define CANTP_NOTIFY_WFT_OVERRUN                (Std_ReturnType)E_NOT_OK
+#define CANTP_NOTIFY_NO_BUFFER                  (Std_ReturnType)E_NOT_OK
+#define CANTP_NOTIFY_CANCEL_OK                  (Std_ReturnType)E_NOT_OK
+#define CANTP_NOTIFY_CANCEL_NOT_OK              (Std_ReturnType)E_NOT_OK
+#define CANTP_NOTIFY_NORESULT                   (Std_ReturnType)(0x80u)
 #endif
 
 typedef uint8                                    CanTp_BufferStateType;
@@ -153,10 +151,10 @@ typedef struct sCanTp_RxStateType{
 #if(CANTP_GENERIC_CONNECTIONS == STD_ON)
   uint8                             SduMetadata[CANTP_MAX_SDU_METADATA_LENGTH];
   uint8                             SduMetadataLength;
-# if(CANTP_MAX_PDU_METADATA_LENGTH != 0)
+#if(CANTP_MAX_PDU_METADATA_LENGTH != 0)
   uint8                             FcPduMetadata[CANTP_MAX_PDU_METADATA_LENGTH];
   uint8                             FcPduMetadataLength;
-# endif
+#endif
 #endif
 }CanTp_RxStateType;
 
@@ -187,10 +185,10 @@ typedef struct sCanTp_TxStateType{
 #if(CANTP_GENERIC_CONNECTIONS == STD_ON)
   uint8                             SduMetadata[CANTP_MAX_SDU_METADATA_LENGTH];
   uint8                             SduMetadataLength;
-# if(CANTP_MAX_PDU_METADATA_LENGTH != 0)
+#if(CANTP_MAX_PDU_METADATA_LENGTH != 0)
   uint8                             DataPduMetadata[CANTP_MAX_PDU_METADATA_LENGTH];
   uint8                             DataPduMetadataLength;
-# endif
+#endif
 #endif
 }CanTp_TxStateType;
 
