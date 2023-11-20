@@ -41,7 +41,7 @@
 /******************************************************************************/
 /* FUNCTIONS                                                                  */
 /******************************************************************************/
-extern FUNC(void, SwcServiceSmCan_CODE) infSwcServiceCanTpSwcServiceSchM_vMainFunction (void);
+extern FUNC(void, SWCSERVICETPCAN_CODE) infSwcServiceCanTpSwcServiceSchM_vMainFunction (void);
 
 /******************************************************************************/
 /* CONSTS                                                                     */
