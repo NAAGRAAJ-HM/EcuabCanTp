@@ -10,7 +10,7 @@ extern "C"
 #include "SwcServiceCanTp_Lcfg.hpp"
 #include "PbCfgSwcServiceCanTp.hpp"
 
-#define CANTP_VENDOR_ID                          (30u)
+#define CANTP_VENDOR_ID                          (1u)
 #define CANTP_MODULE_ID                          (0x23u)
 #define CANTP_AR_RELEASE_MAJOR_VERSION          (4u)
 #define CANTP_AR_RELEASE_MINOR_VERSION          (0u)
