@@ -1,7 +1,7 @@
 /******************************************************************************/
 /* File   : CanTp_Prv.c                                                       */
 /*                                                                            */
-/* Author : Raajnaag HULIYAPURADA MATA                                        */
+/* Author : Nagaraja HULIYAPURADA MATA                                        */
 /*                                                                            */
 /* License / Warranty / Terms and Conditions                                  */
 /*                                                                            */
@@ -13,7 +13,7 @@
 /* certain responsibilities, if you distribute copies of the software, or if  */
 /* you modify it: responsibilities to respect the freedom of others.          */
 /*                                                                            */
-/* All rights reserved. Copyright © 1982 Raajnaag HULIYAPURADA MATA           */
+/* All rights reserved. Copyright © 1982 Nagaraja HULIYAPURADA MATA           */
 /*                                                                            */
 /* Always refer latest software version from:                                 */
 /* https://github.com/RaajnaagHuliyapuradaMata?tab=repositories               */
@@ -818,6 +818,7 @@ static void SwcApplCanTp_fptrSubState_TxSendConsecutiveFrame(
       CAN_DL                   = CanTp_Lok_GetTxDl(Connection);
       PduInfo.SduLength        = CAN_DL;
       Context.CsTicks          = CanTp_Lok_GetCfgCsCrTicks(Connection);
+
       MaxLength                = CAN_DL - CANTP_CF_PCISIZE - CanTp_AddressSize[Connection->AddressFormatId];
 
       Context.PayLoadLength = (
@@ -828,17 +829,19 @@ static void SwcApplCanTp_fptrSubState_TxSendConsecutiveFrame(
       :  MaxLength
       ;
 
+
       if(
-            (Context.ElapsedValue >= Channel->STminTicks)
-         || (Channel->PciId       != CANTP_NPCI_CF)
+                  (Context.ElapsedValue >= Channel->STminTicks)
+               || (Channel->PciId       != CANTP_NPCI_CF)
       ){
          Channel->PciId = CANTP_NPCI_CF;
 
-         CanTp_Lok_Transmit(
+            CanTp_Lok_Transmit(
                &Context
             ,  &SduInfo
             ,  &PduInfo
          );
+
       }
    }
    SchM_Exit_CanTp_EXCLUSIVE_AREA();
