@@ -441,8 +441,7 @@ LOCAL_INLINE void CanTp_Lok_SetTxBlockInfo(
    CanTp_ChannelPtrType Channel = &CanTp_Channel[Context->ChannelId];
    Type_SwcServiceCom_tLengthPdu BlockCfsRemaining;
    SduDataPtr = PduInfoPtr->SduDataPtr + Context->DataOffset;
-   if(Channel->STminTicks == CANTP_INVALID_STMIN_TICKS)
-   {
+   if(Channel->STminTicks == CANTP_INVALID_STMIN_TICKS){
       Channel->BS = *SduDataPtr;
       SduDataPtr++;
       if(*SduDataPtr <= CANTP_MILLISEC_MAX_RANGE){
@@ -483,8 +482,7 @@ LOCAL_INLINE void CanTp_Lok_SetRxBlockInfo(
    uint8 BS = Channel->BS;
    const CanTp_RxSduType *Connection = CanTp_CfgPtr->RxSdu + Channel->ActiveSduId;
    Type_SwcServiceCom_tLengthPdu OneFramePayloadLength = CanTp_Lok_GetRxDl(ChannelId) - CanTp_AddressSize[Connection->AddressFormatId] - CANTP_CF_PCISIZE;
-   if(Channel->STminTicks == CANTP_INVALID_STMIN_TICKS)
-   {
+   if(Channel->STminTicks == CANTP_INVALID_STMIN_TICKS){
       BSMax = CanTp_Lok_GetRxParam(Channel->ActiveSduId, TP_BS);
       if(RemBufSize >= Channel->SduLengthRemaining){
          BS = BSMax;
